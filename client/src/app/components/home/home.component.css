@@ -1,0 +1,13 @@
+.app {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    background-color: rgb(233, 240, 245);
+    overflow: hidden;
+  }
+  .app-main {
+    background-color: rgb(233, 240, 245);
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+  }

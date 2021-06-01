@@ -1,0 +1,13 @@
+<div class="example-box" *ngFor="let items of item.listItems" cdkDrag>
+  <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+  <span
+    style="
+      margin-bottom: 15px;
+      font-size: 17px;
+      font-weight: 800;
+      color: #12203e;
+    "
+    >Title</span
+  >
+  {{ items }}
+</div>

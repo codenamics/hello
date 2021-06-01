@@ -1,0 +1,31 @@
+<div
+  style="
+    margin: 45px 0 20px 20px;
+    padding-bottom: 20px;
+    overflow-x: auto;
+    height: calc(100vh - 120px);
+  "
+  *ngIf="stored_data?.length != 0"
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  (cdkDropListDropped)="dropColumns($event)"
+>
+
+  <div cdkDropListGroup id="testDiv" cdkScrollable>
+    <div class="example-container" *ngFor="let item of stored_data" cdkDrag>
+        <div class="example-custom-placeholder" style="border-color: red;" *cdkDragPlaceholder></div>
+      <div class="example-top">
+        <div style="font-weight: 600; font-size: 20px">{{ item.listName }}</div>
+        <button class="button-new-item">+ New Item</button>
+      </div>
+      <div
+        cdkDropList
+        [cdkDropListData]="item.listItems"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-kanban-item [item]="item"></app-kanban-item>
+      </div>
+    </div>
+  </div>
+</div>
