@@ -21,22 +21,40 @@ namespace API.Controllers {
 
             return BadRequest ("Failed to create board");
         }
-        [HttpPost("{id}")]
-        public async Task<ActionResult> add (int id,[FromBody] List list) {
-          var board = await _boardRepository.GetBoardAsync(id);
-            board.Lists.Add(list);
-            if (await _boardRepository.SaveChanges ()) return Ok();
+        // [HttpPost("{id}")]
+        // public async Task<ActionResult> add (int id,[FromBody] List list) {
+        //   var board = await _boardRepository.GetBoardAsync(id);
+        //     board.Lists.Add(list);
+        //     if (await _boardRepository.SaveChanges ()) return Ok();
 
-            return BadRequest ("Failed to create board");
-        }
+        //     return BadRequest ("Failed to create board");
+        // }
         [HttpGet]
         public async Task<ActionResult<List<Board>>> GetAllBoards () {
           var boards = await _boardRepository.GetAllBoardsAsync();
             if(boards == null){
-                return BadRequest ("Failed to create board");
+                return BadRequest ("Failed to get boards");
              
             }
                return Ok(boards);
+        }
+        [HttpPut]
+        public async Task<ActionResult> UpdateBoard ([FromBody]Board board) {
+           
+            _boardRepository.UpdateBoard(board);
+
+            if (await _boardRepository.SaveChanges ()) return Ok();
+
+            return BadRequest ("Failed to update board");
+        }
+         [HttpDelete]
+        public async Task<ActionResult> DeleteBoard ([FromBody]Board board) {
+           
+            _boardRepository.DeleteBoard(board);
+
+            if (await _boardRepository.SaveChanges ()) return Ok();
+
+            return BadRequest ("Failed to delete board");
         }
     }
 }

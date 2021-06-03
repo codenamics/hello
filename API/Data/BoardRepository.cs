@@ -15,27 +15,24 @@ namespace API.Data {
         public void CreateBoard (Board board) {
             _context.Boards.Add (board);
         }
-        public async Task DeleteBoardAsync (int boardId) {
-            var board = await _context.Boards.Include (x => x.Lists)
-                .ThenInclude (y => y.Items).FirstOrDefaultAsync (x => x.Id == boardId);
-            if (board != null) {
+        public void DeleteBoard (Board board) {
+ 
+           
                 _context.Boards.Remove (board);
-            } else {
-                return;
-            }
+           
         }
         public Task<List<Board>> GetAllBoardsAsync () {
-            return _context.Boards.Include (x => x.Lists).ThenInclude (x => x.Items).ToListAsync ();
+            return _context.Boards.Include (x => x.Lists).ThenInclude (x => x.Items).AsSplitQuery().ToListAsync ();
         }
         public async Task<Board> GetBoardAsync (int boardId) {
-            return await _context.Boards.Include (x => x.Lists).ThenInclude (x => x.Items).FirstOrDefaultAsync (x => x.Id == boardId);
+            return await _context.Boards.Include (x => x.Lists).ThenInclude (x => x.Items).AsSplitQuery().FirstOrDefaultAsync (x => x.Id == boardId);
         }
         public async Task<bool> SaveChanges () {
             return await _context.SaveChangesAsync () > 0;
 
         }
-        public Task<ActionResult> UpdateBoardAsync (int boardId) {
-            throw new System.NotImplementedException ();
+        public void UpdateBoard(Board board) {
+             _context.Entry(board).State = EntityState.Modified;
         }
     }
 }

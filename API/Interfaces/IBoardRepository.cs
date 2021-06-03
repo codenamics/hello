@@ -10,8 +10,8 @@ namespace API.Interfaces {
         void CreateBoard (Board board);
         Task<Board> GetBoardAsync (int boardId);
         Task<List<Board>> GetAllBoardsAsync ();
-        Task<ActionResult> UpdateBoardAsync (int boardId);
-        Task DeleteBoardAsync (int boardId);
+        void UpdateBoard (Board board);
+        void DeleteBoard (Board board);
         Task<bool> SaveChanges();
     }
 }
