@@ -21,9 +21,9 @@ namespace API.Data
             _context.Lists.Remove(list);
         }
 
-        public Task<List> GetListAsync(int id)
+        public async Task<List> GetListAsync(int id)
         {
-            throw new System.NotImplementedException();
+            return await _context.Lists.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public void UpdateList(List list)

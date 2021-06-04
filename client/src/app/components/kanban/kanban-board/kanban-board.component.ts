@@ -22,6 +22,7 @@ export class KanbanBoardComponent implements OnInit {
     if (localStorage.getItem('data') === null) {
       localStorage['data'] = JSON.stringify([
         {
+          id:1,
           listName: 'todo',
           listItems: [
             'Donec sit amet erat eget risus porttitor bibendum placerat quis sem. Nullam semper luctus velit, eu rutrum arcu pellentesque eget. Aliquam vitae tristique ligula. Aenean gravida tincidunt ante, ac facilisis lacus vulputate et. Pellentesque sed diam augue. Morbi mollis diam sit amet libero porttitor porta. Etiam semper nisi purus, et laoreet mauris porta ut. Suspendisse condimentum pharetra iaculis.',
@@ -35,7 +36,7 @@ export class KanbanBoardComponent implements OnInit {
             'Get to work',
           ],
         },
-        {
+        {id:2,
           listName: 'done',
           listItems: [
             'Get up',
@@ -45,7 +46,7 @@ export class KanbanBoardComponent implements OnInit {
             'Walk dog',
           ],
         },
-        {
+        {id:3,
           listName: 'inProgress',
           listItems: [
             'CV',
@@ -55,7 +56,7 @@ export class KanbanBoardComponent implements OnInit {
           ],
         },
 
-        {
+        {id:4,
           listName: 'backlog',
           listItems: [
             'Get up',
@@ -65,36 +66,7 @@ export class KanbanBoardComponent implements OnInit {
             'Walk dog',
           ],
         },
-        {
-          listName: 'backlog',
-          listItems: [
-            'Get up',
-            'ed viverra venenatis enim a malesuada. Sed auctor fringilla augue ut pretium. Aenean vitae feugiat nunc. Nam vitae justo erat. Sed condimentum dignissim nibh vel blandit. Morbi nulla nisi, vehicula',
-            'Take a shower',
-            'Check e-mail',
-            'Walk dog',
-          ],
-        },
-        {
-          listName: 'backlog',
-          listItems: [
-            'Get up',
-            'ed viverra venenatis enim a malesuada. Sed auctor fringilla augue ut pretium. Aenean vitae feugiat nunc. Nam vitae justo erat. Sed condimentum dignissim nibh vel blandit. Morbi nulla nisi, vehicula',
-            'Take a shower',
-            'Check e-mail',
-            'Walk dog',
-          ],
-        },
-        {
-          listName: 'backlog',
-          listItems: [
-            'Get up',
-            'ed viverra venenatis enim a malesuada. Sed auctor fringilla augue ut pretium. Aenean vitae feugiat nunc. Nam vitae justo erat. Sed condimentum dignissim nibh vel blandit. Morbi nulla nisi, vehicula',
-            'Take a shower',
-            'Check e-mail',
-            'Walk dog',
-          ],
-        },
+        
       ]);
     }
 
@@ -124,5 +96,28 @@ export class KanbanBoardComponent implements OnInit {
     console.log(this.stored_data);
     localStorage['data'] = JSON.stringify(this.stored_data);
   }
+  addList(){
+  this.stored_data.unshift(
+      {
+        id:5,
+        listName: 'added',
+        listItems: [
+          'Get up',
+          'ed viverra venenatis enim a malesuada. Sed auctor fringilla augue ut pretium. Aenean vitae feugiat nunc. Nam vitae justo erat. Sed condimentum dignissim nibh vel blandit. Morbi nulla nisi, vehicula',
+          'Take a shower',
+          'Check e-mail',
+          'Walk dog',
+        ],
+      },
+    )
+    
+    localStorage['data'] = JSON.stringify(this.stored_data);
+  }
+  addItem(){
+   var list = this.stored_data.find(x => x.id == 1);
+   console.log(list)
+    list?.listItems.unshift('test')
 
+    localStorage['data'] = JSON.stringify(this.stored_data);
+  }
 }

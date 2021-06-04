@@ -7,6 +7,6 @@ namespace API.Entity
         public int Id { get; set; }
         public string Title { get; set; }
          public int Order { get; set; }
-         public ICollection<Item> Items { get; set; }
+         public ICollection<Item> Items { get; set; } = new List<Item>();
     }
 }

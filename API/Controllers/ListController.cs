@@ -20,7 +20,6 @@ namespace API.Controllers
         {
             _mapper = mapper;
             _listRepository = listRepository;
-
             _boardRepository = boardRepository;
         }
 
@@ -45,14 +44,14 @@ namespace API.Controllers
             return BadRequest("Failed to update list");
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateListOrder(int id, [FromBody] BoardDTO boardDTO)
+        public async Task<ActionResult> UpdateListOrder(int id, [FromBody] List<List> list)
         {
         var board = await _boardRepository.GetBoardAsync(id);
             
-       var newBoardListOrder = AnnotateOrder(boardDTO);
+       var newBoardListOrder = AnnotateOrder(list);
 
        if(board.Lists != null){
-           foreach (var newList in newBoardListOrder.Lists)
+           foreach (var newList in newBoardListOrder)
            {
                foreach (var oldList in board.Lists)
                {
@@ -81,18 +80,18 @@ namespace API.Controllers
 
             return BadRequest("Failed to delete list");
         }
-        private BoardDTO AnnotateOrder(BoardDTO board)
+        private List<List> AnnotateOrder(List<List> list)
         {
-               var result = new List<List>();
-            if (board.Lists != null)
+           
+            if (list != null)
             {
-                for (int i = 0; i < board.Lists.Count; i++)
+                for (int i = 0; i < list.Count; i++)
                 {
                     
-                    board.Lists.ToArray()[i].Order = i;
+                    list.ToArray()[i].Order = i;
                 }
             }
-            return board;
+            return list;
         }
 
     }
