@@ -1,59 +1,68 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.DTO;
 using API.Entity;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers {
-    [Route ("api/boards")]
+    [Route ("api/board")]
     public class BoardController : ControllerBase {
         private readonly IBoardRepository _boardRepository;
+        private readonly IMapper _mapper;
 
-        public BoardController (IBoardRepository boardRepository) {
+        public BoardController (IBoardRepository boardRepository, IMapper mapper) {
+            _mapper = mapper;
 
             _boardRepository = boardRepository;
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateBoard (Board board) {
+        public async Task<ActionResult> CreateBoard ([FromBody] Board board) {
+
             _boardRepository.CreateBoard (board);
-            if (await _boardRepository.SaveChanges ()) return NoContent ();
+            if (await _boardRepository.SaveChanges ()) return Ok ();
 
             return BadRequest ("Failed to create board");
         }
-       
+
         [HttpGet]
         public async Task<ActionResult<List<Board>>> GetAllBoards () {
-          var boards = await _boardRepository.GetAllBoardsAsync();
-            if(boards == null){
+            var boards = await _boardRepository.GetAllBoardsAsync ();
+            if (boards == null) {
                 return NotFound ();
             }
-               return Ok(boards);
+            return Ok (boards);
         }
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Board>> GetBoard (int id) {
-          var board = await _boardRepository.GetBoardAsync(id);
-            if(board == null){
-                return NotFound ();
-            }
-               return Ok(board);
-        }
-        [HttpPut]
-        public async Task<ActionResult> UpdateBoard ([FromBody]Board board) {
-           
-            _boardRepository.UpdateBoard(board);
 
-            if (await _boardRepository.SaveChanges ()) return Ok();
+        [HttpGet ("{id}")]
+        public async Task<ActionResult<Board>> GetBoard (Guid id) {
+            var board = await _boardRepository.GetBoardAsync (id);
+            if (board == null) {
+                return NotFound ();
+            }
+            return Ok (board);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateBoard ([FromBody] BoardUpdateDTO boardUpdateDTO) {
+            var updatedBoard = _mapper.Map<Board> (boardUpdateDTO);
+            _boardRepository.UpdateBoard (updatedBoard);
+
+            if (await _boardRepository.SaveChanges ()) return Ok ();
 
             return BadRequest ("Failed to update board");
         }
-         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteBoard (int id ) {
-           var board = await _boardRepository.GetBoardAsync(id);
-            
-            _boardRepository.DeleteBoard(board);
 
-            if (await _boardRepository.SaveChanges ()) return Ok();
+        [HttpDelete ("{id}")]
+        public async Task<ActionResult> DeleteBoard (Guid id) {
+            var board = await _boardRepository.GetBoardAsync (id);
+
+            _boardRepository.DeleteBoard (board);
+
+            if (await _boardRepository.SaveChanges ()) return Ok ();
 
             return BadRequest ("Failed to delete board");
         }

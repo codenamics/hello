@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,10 +22,10 @@ namespace API.Data {
            
         }
         public Task<List<Board>> GetAllBoardsAsync () {
-            return _context.Boards.Include (x => x.Lists).ThenInclude (x => x.Items).AsSplitQuery().ToListAsync ();
+            return _context.Boards.Include (x => x.Lists).ThenInclude (x => x.Items).ToListAsync ();
         }
-        public async Task<Board> GetBoardAsync (int id) {
-            return await _context.Boards.Include (x => x.Lists.OrderBy(x => x.Order)).ThenInclude (x => x.Items).FirstOrDefaultAsync (x => x.Id == id);
+        public async Task<Board> GetBoardAsync (Guid id) {
+            return await _context.Boards.Include (x => x.Lists).ThenInclude (x => x.Items).FirstOrDefaultAsync (x => x.Id == id);
         }
         public async Task<bool> SaveChanges () {
             return await _context.SaveChangesAsync () > 0;

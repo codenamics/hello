@@ -1,7 +1,6 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using API.DTO;
 using API.Entity;
 using API.Interfaces;
 using AutoMapper;
@@ -9,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/lists")]
+    [Route("api/list")]
     public class ListController : ControllerBase
     {
         private readonly IBoardRepository _boardRepository;
@@ -24,15 +23,34 @@ namespace API.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<ActionResult> CreateList(int id, [FromBody] List list)
+        public async Task<ActionResult> CreateList(Guid id, [FromBody] List list)
         {
+      
             var board = await _boardRepository.GetBoardAsync(id);
-            board.Lists.Add(list);
 
-            if (await _boardRepository.SaveChanges()) return NoContent();
+            if(board.Lists.Count != 0){
+              
+                foreach (var item in board.Lists)
+                {
+                    item.Id = item.Id;
+                    item.Order = item.Order + 1;
+                }
+                board.Lists.Add(new List{
+                    Id = list.Id,
+                    Title = list.Title
+                });
+            }else{
+                 board.Lists.Add(new List{
+                    Id = list.Id,
+                    Title = list.Title
+                });
+            }
+            if (await _boardRepository.SaveChanges()) return Ok();
 
-            return BadRequest("Failed to create list");
+            return BadRequest("Cannot add into board");
+
         }
+
         [HttpPut]
         public async Task<ActionResult> UpdateList([FromBody] List list)
         {
@@ -43,55 +61,83 @@ namespace API.Controllers
 
             return BadRequest("Failed to update list");
         }
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateListOrder(int id, [FromBody] List<List> list)
-        {
-        var board = await _boardRepository.GetBoardAsync(id);
-            
-       var newBoardListOrder = AnnotateOrder(list);
 
-       if(board.Lists != null){
-           foreach (var newList in newBoardListOrder)
-           {
-               foreach (var oldList in board.Lists)
-               {
-                   if(oldList.Id == newList.Id)
-                   {
-                       oldList.Id = oldList.Id;
-                       oldList.Title = newList.Title;
-                       oldList.Order = newList.Order;
-                   }
-               }
-               
-           }
-       }
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateListOrder(Guid id, [FromBody] List<List> list)
+        {
+            var board = await _boardRepository.GetBoardAsync(id);
+
+            var newBoardListOrder = AnnotateOrder(list);
+
+            if (board.Lists.Count != 0)
+            {
+                foreach (var newList in newBoardListOrder)
+                {
+                    foreach (var oldList in board.Lists)
+                    {
+                        if (oldList.Id == newList.Id)
+                        {
+                            oldList.Id = oldList.Id;
+                            oldList.Title = newList.Title;
+                            oldList.Order = newList.Order;
+                        }
+                    }
+
+                }
+            }
             _boardRepository.UpdateBoard(board);
             if (await _boardRepository.SaveChanges()) return NoContent();
 
             return BadRequest("Failed to update list");
         }
-        [HttpDelete]
-        public async Task<ActionResult> DeleteList([FromBody] List list)
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetListById(Guid id)
         {
+            var list = await _listRepository.GetListAsync(id);
 
-            _listRepository.DeleteList(list);
-
-            if (await _boardRepository.SaveChanges()) return NoContent();
-
-            return BadRequest("Failed to delete list");
+            return Ok(list);
         }
-        private List<List> AnnotateOrder(List<List> list)
+
+        [HttpDelete("{boardId}/{listId}")]
+        public async Task<ActionResult> DeleteList(Guid boardId, Guid listId, [FromBody] List<List> lists)
         {
+            var board = await _boardRepository.GetBoardAsync(boardId);
+            var listToRemove = await _listRepository.GetListAsync(listId);
+            
+            _listRepository.DeleteList(listToRemove);
            
-            if (list != null)
-            {
-                for (int i = 0; i < list.Count; i++)
+            var newBoardListOrder = AnnotateOrder(lists);
+
+            if (board.Lists.Count != 0)
+            {   
+                
+                foreach (var newList in newBoardListOrder)
                 {
-                    
-                    list.ToArray()[i].Order = i;
+                    foreach (var oldList in board.Lists)
+                    {
+                        if (oldList.Id == newList.Id)
+                        {
+                            oldList.Id = oldList.Id;
+                            oldList.Title = newList.Title;
+                            oldList.Order = newList.Order;
+                        }
+                    }
+
                 }
             }
-            return list;
+            _boardRepository.UpdateBoard(board);
+            if (await _boardRepository.SaveChanges()) return Ok();
+           
+            return BadRequest("Failed to delete list");
+        }
+       private List<List> AnnotateOrder (List<List> ent) {
+            if (ent != null) {
+                for (int i = 0; i < ent.Count; i++) {
+                    ent[i].Order = i;
+                }
+            }
+            return ent;
         }
 
     }

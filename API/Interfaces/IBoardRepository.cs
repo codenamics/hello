@@ -8,10 +8,10 @@ namespace API.Interfaces {
     public interface IBoardRepository {
 
         void CreateBoard (Board board);
-        Task<Board> GetBoardAsync (int boardId);
-        Task<List<Board>> GetAllBoardsAsync ();
         void UpdateBoard (Board board);
         void DeleteBoard (Board board);
+        Task<Board> GetBoardAsync (Guid boardId);
+        Task<List<Board>> GetAllBoardsAsync ();
         Task<bool> SaveChanges();
     }
 }

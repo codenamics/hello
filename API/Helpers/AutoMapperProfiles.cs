@@ -9,7 +9,9 @@ namespace API.Helpers
 
         public AutoMapperProfiles()
         {
-            
+            CreateMap<BoardCreationDTO,Board > ();
+            CreateMap<BoardUpdateDTO,Board > ();
+         
         }
      
     }

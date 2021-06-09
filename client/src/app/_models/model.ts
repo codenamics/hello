@@ -1,7 +1,12 @@
 export interface stored_data{
   id: number,
-    listName: string,
-    listItems: string[],
+  arr: list[]
   }
+
+ interface list{
+      id: number,
+      listName: string,
+      listItems: string[],
+    }
 
   

@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20210602221230_base")]
-    partial class @base
+    [Migration("20210608222021_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,10 +23,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entity.Board", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -38,16 +36,14 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entity.Item", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<int?>("ListId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("ListId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Order")
                         .HasColumnType("integer");
@@ -64,13 +60,11 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entity.List", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
-                    b.Property<int?>("BoardId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("BoardId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Order")
                         .HasColumnType("integer");
@@ -87,16 +81,24 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entity.Item", b =>
                 {
-                    b.HasOne("API.Entity.List", null)
+                    b.HasOne("API.Entity.List", "List")
                         .WithMany("Items")
-                        .HasForeignKey("ListId");
+                        .HasForeignKey("ListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("List");
                 });
 
             modelBuilder.Entity("API.Entity.List", b =>
                 {
-                    b.HasOne("API.Entity.Board", null)
+                    b.HasOne("API.Entity.Board", "Board")
                         .WithMany("Lists")
-                        .HasForeignKey("BoardId");
+                        .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Board");
                 });
 
             modelBuilder.Entity("API.Entity.Board", b =>

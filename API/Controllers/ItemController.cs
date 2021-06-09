@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTO;
@@ -6,96 +8,103 @@ using API.Entity;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using NetTopologySuite.Index.HPRtree;
 
 namespace API.Controllers
 {
-    [Route("api/items")]
+    [Route("api/item")]
     public class ItemController : ControllerBase
     {
 
-        private readonly IListRepository _listRepository;
+
         private readonly IMapper _mapper;
         private readonly IBoardRepository _boardRepository;
+        private readonly IItemRepository _itemRepository;
 
-        public ItemController(IBoardRepository boardRepository, IListRepository listRepository, IMapper mapper)
+        public ItemController(IBoardRepository boardRepository, IItemRepository itemRepository)
         {
+            _itemRepository = itemRepository;
             _boardRepository = boardRepository;
-            _mapper = mapper;
-            _listRepository = listRepository;
+
+
 
         }
 
         [HttpPost("{id}")]
-        public async Task<ActionResult> AddItemToList(int id, [FromBody] Item item)
+        public async Task<ActionResult> AddItemToList(Guid id, [FromBody] List<Item> item)
         {
-            var list = await _listRepository.GetListAsync(id);
-            list.Items.Add(item);
+            var list = new List<Item>();
+            var listOneAnn = AnnotateOrder(item);
+            foreach (var items in listOneAnn.ToList())
+            {
+                list.Add(new Item
+                {
+                    Id = items.Id,
+                    Title = items.Title,
+                    Description = items.Description,
+                    ListId = id,
+                    Order = items.Order
+                });
 
-            if (await _boardRepository.SaveChanges()) return Ok();
+            }
+            // _itemRepository.UpdateItems(list);
+            // if (await _boardRepository.SaveChanges()) 
+            return Ok(list);
 
             return BadRequest("Failed to add item");
         }
-        // [HttpPut]
-        // public async Task<ActionResult> UpdateList([FromBody] List list)
-        // {
 
-        //     _listRepository.UpdateList(list);
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateItemOrderInList(Guid id, [FromBody] Root items)
+        {
 
-        //     if (await _boardRepository.SaveChanges()) return NoContent();
+            var list = new List<Item>();
+            var listOneAnn = AnnotateOrder(items.previous.items);
+            foreach (var item in listOneAnn)
+            {
+                list.Add(new Item
+                {
+                    Id = item.Id,
+                    Title = item.Title,
+                    Description = item.Description,
+                    ListId = items.previous.id,
+                    Order = item.Order
+                });
 
-        //     return BadRequest("Failed to update list");
-        // }
-        // [HttpPut("{id}")]
-        // public async Task<ActionResult> UpdateListOrder(int id, [FromBody] List<List> list)
-        // {
-        //     var board = await _boardRepository.GetBoardAsync(id);
+            }
 
-        //     var newBoardListOrder = AnnotateOrder(list);
+            var listTwoAnn = AnnotateOrder(items.current.items);
+            foreach (var item in listTwoAnn)
+            {
+                list.Add(new Item
+                {
+                    Id = item.Id,
+                    Title = item.Title,
+                    Description = item.Description,
+                    ListId = items.current.id,
+                    Order = item.Order
+                });
+            }
 
-        //     if (board.Lists != null)
-        //     {
-        //         foreach (var newList in newBoardListOrder)
-        //         {
-        //             foreach (var oldList in board.Lists)
-        //             {
-        //                 if (oldList.Id == newList.Id)
-        //                 {
-        //                     oldList.Id = oldList.Id;
-        //                     oldList.Title = newList.Title;
-        //                     oldList.Order = newList.Order;
-        //                 }
-        //             }
+            _itemRepository.UpdateItems(list);
 
-        //         }
-        //     }
-        //     _boardRepository.UpdateBoard(board);
-        //     if (await _boardRepository.SaveChanges()) return NoContent();
+            if (await _boardRepository.SaveChanges()) return Ok();
 
-        //     return BadRequest("Failed to update list");
-        // }
-        // [HttpDelete]
-        // public async Task<ActionResult> DeleteList([FromBody] List list)
-        // {
+            return BadRequest("Failed to update list");
+        }
+        private List<Item> AnnotateOrder(List<Item> list)
+        {
 
-        //     _listRepository.DeleteList(list);
+            if (list != null)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
 
-        //     if (await _boardRepository.SaveChanges()) return NoContent();
-
-        //     return BadRequest("Failed to delete list");
-        // }
-        // private List<List> AnnotateOrder(List<List> list)
-        // {
-
-        //     if (list != null)
-        //     {
-        //         for (int i = 0; i < list.Count; i++)
-        //         {
-
-        //             list.ToArray()[i].Order = i;
-        //         }
-        //     }
-        //     return list;
-        // }
+                    list[i].Order = i;
+                }
+            }
+            return list;
+        }
 
     }
 }

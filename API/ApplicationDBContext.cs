@@ -12,7 +12,7 @@ namespace API
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+    
         }
         public DbSet<Board> Boards { get; set; }
         public DbSet<List> Lists { get; set; }

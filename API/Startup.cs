@@ -28,7 +28,10 @@ namespace API {
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IBoardRepository, BoardRepository> ();
              services.AddScoped<IListRepository, ListRepository> ();
-            services.AddControllers ();
+                 services.AddScoped<IItemRepository, ItemRepository> ();
+            services.AddControllers ().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
             services.AddDbContext<ApplicationDBContext> (
                 options => {
                     var env = Environment.GetEnvironmentVariable ("ASPNETCORE_ENVIRONMENT");
