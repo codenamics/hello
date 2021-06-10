@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using API.Helpers;
 
 namespace API.Entity
 {
-    public class List
+    public class List : IOrder
     {   [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }

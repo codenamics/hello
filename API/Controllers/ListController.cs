@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using API.Entity;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -67,7 +69,8 @@ namespace API.Controllers
         {
             var board = await _boardRepository.GetBoardAsync(id);
 
-            var newBoardListOrder = AnnotateOrder(list);
+            var newBoardListOrder = new AnnotateOrder<List>().AnnotatedOrder(list);
+            
 
             if (board.Lists.Count != 0)
             {
@@ -107,7 +110,7 @@ namespace API.Controllers
             
             _listRepository.DeleteList(listToRemove);
            
-            var newBoardListOrder = AnnotateOrder(lists);
+            var newBoardListOrder = new AnnotateOrder<List>().AnnotatedOrder(lists);
 
             if (board.Lists.Count != 0)
             {   
@@ -131,14 +134,7 @@ namespace API.Controllers
            
             return BadRequest("Failed to delete list");
         }
-       private List<List> AnnotateOrder (List<List> ent) {
-            if (ent != null) {
-                for (int i = 0; i < ent.Count; i++) {
-                    ent[i].Order = i;
-                }
-            }
-            return ent;
-        }
+    
 
     }
 }

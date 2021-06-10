@@ -10,13 +10,13 @@ namespace API.Helpers {
     
     public class AnnotateOrder<T> : List<T> where T : IOrder {
 
-        // static public List<T> AnnotateOrder (List<T> ent) {
-        //     if (ent != null) {
-        //         for (int i = 0; i < ent.Count; i++) {
-        //             ent[i].Order = i;
-        //         }
-        //     }
-        //     return ent;
-        // }
+         public List<T> AnnotatedOrder (List<T> ent) {
+            if (ent != null) {
+                for (int i = 0; i < ent.Count; i++) {
+                    ent[i].Order = i;
+                }
+            }
+            return ent;
+        }
     }
 }
