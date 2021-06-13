@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,6 +13,8 @@ import { KanbanBoardComponent } from './components/kanban/kanban-board/kanban-bo
 import { KanbanListComponent } from './components/kanban/kanban-list/kanban-list.component';
 import { KanbanItemComponent } from './components/kanban/kanban-item/kanban-item.component';
 
+import { KanbanBoardsComponent } from './components/kanban/kanban-boards/kanban-boards.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,9 +23,12 @@ import { KanbanItemComponent } from './components/kanban/kanban-item/kanban-item
     NavComponent,
     KanbanBoardComponent,
     KanbanListComponent,
-    KanbanItemComponent
+    KanbanItemComponent,
+
+    KanbanBoardsComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

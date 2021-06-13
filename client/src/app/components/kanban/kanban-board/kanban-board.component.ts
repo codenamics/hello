@@ -4,7 +4,10 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { stored_data } from 'src/app/_models/model';
+import { ActivatedRoute } from '@angular/router';
+import { board } from 'src/app/_models/board';
+
+import { BoardService } from 'src/app/_services/board.service';
 
 @Component({
   selector: 'app-kanban-board',
@@ -12,76 +15,29 @@ import { stored_data } from 'src/app/_models/model';
   styleUrls: ['./kanban-board.component.css'],
 })
 export class KanbanBoardComponent implements OnInit {
-  stored_data: any = {};
+  board!: board;
   loading: boolean | undefined;
-  async ngOnInit() {
+  constructor( private route: ActivatedRoute, private boardService: BoardService){
+
+  }
+
+   ngOnInit() {
     this.loading = true;
-
-    this.loadData();
-    this.loading = false;
-  }
-
-  loadData() {
-    if (localStorage.getItem('data') === null) {
-      localStorage['data'] = JSON.stringify({
-        id: 1,
-        arr: [
-          {
-            id: 1,
-            listName: 'todo',
-            listItems: [
-              'Donec sit amet erat eget risus porttitor bibendum placerat quis sem. Nullam semper luctus velit, eu rutrum arcu pellentesque eget. Aliquam vitae tristique ligula. Aenean gravida tincidunt ante, ac facilisis lacus vulputate et. Pellentesque sed diam augue. Morbi mollis diam sit amet libero porttitor porta. Etiam semper nisi purus, et laoreet mauris porta ut. Suspendisse condimentum pharetra iaculis.',
-              'Pick up groceries',
-              'ed viverra venenatis enim a malesuada. Sed auctor fringilla augue ut pretium. Aenean vitae feugiat nunc. Nam vitae justo erat. Sed condimentum dignissim nibh vel blandit. Morbi nulla nisi, vehicula',
-              'Fall asleep',
-              'Get to work',
-              'Pick up groceries',
-              'Go home',
-              'Fall asleep',
-              'Get to work',
-            ],
-          },
-          {
-            id: 2,
-            listName: 'done',
-            listItems: [
-              'Get up',
-              'ed viverra venenatis enim a malesuada. Sed auctor fringilla augue ut pretium. Aenean vitae feugiat nunc. Nam vitae justo erat. Sed condimentum dignissim nibh vel blandit. Morbi nulla nisi, vehicula',
-              'Take a shower',
-              'Check e-mail',
-              'Walk dog',
-            ],
-          },
-          {
-            id: 3,
-            listName: 'inProgress',
-            listItems: [
-              'CV',
-              'Donec sit amet erat eget risus porttitor bibendum placerat quis sem. Nullamiam augue. Morbi mollis diam sit amet libero porttitor porta. Etiam semper nisi purus, et laoreet mauris porta ut. Suspendisse condimentum pharetra iaculis.',
-              'Donec sit amet erat eget risus porttitor bibendum placerat quis sem. NulAenean gravida tincidunt ante, ac facilisis lacus vulputate et. Pellentesque sed diam augue. Morbi mollis diam sit amet libero porttitor porta. Etiam semper nisi purus, et laoreet mauris porta ut. Suspendisse condimentum pharetra iaculis.',
-              'Donec sit amet erat eget risus porttitor bibendum placerat quis sem. Nullam semper luctus velit, eu rutrum arcu pellentesque eget. Aliquam vitae tris diam augue. Morbi mollis diam sit amet libero porttitor porta. Etiam semper nisi purus, et laoreet mauris porta ut. Susra iaculis.',
-            ],
-          },
-
-          {
-            id: 4,
-            listName: 'backlog',
-            listItems: [
-              'Get up',
-              'ed viverra venenatis enim a malesuada. Sed auctor fringilla augue ut pretium. Aenean vitae feugiat nunc. Nam vitae justo erat. Sed condimentum dignissim nibh vel blandit. Morbi nulla nisi, vehicula',
-              'Take a shower',
-              'Check e-mail',
-              'Walk dog',
-            ],
-          },
-        ],
+    this.route.params.subscribe((params) => {
+      
+      this.boardService.getBoard(params.id).subscribe((board)=>{
+ 
+        this.board = board
+        this.loading = false;
       });
-    }
-
-    this.stored_data = JSON.parse(localStorage['data']);
+    });
+    
   }
+  
 
-  drop(event: CdkDragDrop<string[]>) {
+
+
+  drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       console.log(event);
 
@@ -91,7 +47,7 @@ export class KanbanBoardComponent implements OnInit {
         event.currentIndex
       );
       
-      // var dd = this.stored_data.arr.filter(
+      // var dd = this.board.arr.filter(
       //   (x: any) => x.id.toString() == event.container.id.toString()
       // );
       // console.log(dd);
@@ -105,19 +61,19 @@ export class KanbanBoardComponent implements OnInit {
       );
     }
 
-    localStorage['data'] = JSON.stringify(this.stored_data);
+    
   }
-  dropColumns(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.stored_data.arr, event.previousIndex, event.currentIndex);
-    console.log(this.stored_data)
+  dropColumns(event: CdkDragDrop<any[]>) {
+    moveItemInArray(this.board.lists, event.previousIndex, event.currentIndex);
+   
 
-    //  var dd = this.stored_data.map(x => ({
+    //  var dd = this.board.map(x => ({
     //    id: x.id, listName: x.listName}))
     //   console.log(dd)
-    localStorage['data'] = JSON.stringify(this.stored_data);
+
   }
   // addList() {
-  //   this.stored_data.unshift({
+  //   this.board.unshift({
   //     id: 5,
   //     listName: 'added',
   //     listItems: [
@@ -129,13 +85,13 @@ export class KanbanBoardComponent implements OnInit {
   //     ],
   //   });
 
-  //   localStorage['data'] = JSON.stringify(this.stored_data);
+  //   localStorage['data'] = JSON.stringify(this.board);
   // }
   // addItem() {
-  //   var list = this.stored_data.find((x) => x.id == 1);
+  //   var list = this.board.find((x) => x.id == 1);
   //   console.log(list);
   //   list?.listItems.unshift('test');
 
-  //   localStorage['data'] = JSON.stringify(this.stored_data);
+  //   localStorage['data'] = JSON.stringify(this.board);
   // }
 }

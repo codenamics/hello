@@ -26,7 +26,9 @@ namespace API.Controllers {
         [HttpPost ("{id}")]
         public async Task<ActionResult> AddItemToList (Guid id, [FromBody] Item itemToAdd) {
             var list = await _listRepository.GetListAsync (id);
-
+        if (list == null) {
+                return NotFound ();
+            }
             if (list.Items.Count != 0) {
 
                 foreach (var item in list.Items) {
@@ -97,7 +99,9 @@ namespace API.Controllers {
         public async Task<ActionResult> DeleteList (Guid listId, Guid itemId, [FromBody] List<Item> items) {
             var list = await _listRepository.GetListAsync (listId);
             var itemToRemove = await _itemRepository.GetItemAsync (itemId);
-
+            if (list == null || itemToRemove == null) {
+                return NotFound ();
+            }
             _itemRepository.DeleteItem (itemToRemove);
 
             var newListOrder = new AnnotateOrder<Item> ().AnnotatedOrder (items);
@@ -119,14 +123,15 @@ namespace API.Controllers {
 
             return BadRequest ("Failed to delete list");
         }
-        private List<Item> CreateNewItemList (List<Item> list, List<Item> items, Guid id) {
+        private List<Item> CreateNewItemList (List<Item> list, List<Item> items, Guid id) 
+        {
             foreach (var item in items) {
                 list.Add (new Item {
                     Id = item.Id,
-                        Title = item.Title,
-                        Description = item.Description,
-                        ListId = id,
-                        Order = item.Order
+                    Title = item.Title,
+                    Description = item.Description,
+                    ListId = id,
+                    Order = item.Order
                 });
             }
             return list;

@@ -1,5 +1,5 @@
-<div class="example-box" *ngFor="let items of item.listItems" cdkDrag>
-  <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+<div class="item-container" *ngFor="let items of item.items" cdkDrag>
+  <div class="item-custom-placeholder" *cdkDragPlaceholder></div>
   <span
     style="
       margin-bottom: 15px;
@@ -9,5 +9,5 @@
     "
     >Title</span
   >
-  {{ items }}
+  {{ items.title }}
 </div>

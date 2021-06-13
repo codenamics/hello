@@ -23,7 +23,7 @@ namespace API.Controllers {
         public async Task<ActionResult> CreateBoard ([FromBody] Board board) {
 
             _boardRepository.CreateBoard (board);
-            if (await _boardRepository.SaveChanges ()) return Ok ();
+            if (await _boardRepository.SaveChanges ()) return Ok (board);
 
             return BadRequest ("Failed to create board");
         }

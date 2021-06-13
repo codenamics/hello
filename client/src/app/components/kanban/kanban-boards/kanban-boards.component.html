@@ -1,0 +1,23 @@
+<div style="padding: 20px">
+    <button class="button-standard-item" (click)="addBoard()">+ New Item</button>
+    <div
+      style="display: flex; flex-direction: row"
+      *ngIf="boards.length != 0 && !loading"
+    >
+      <div routerLink="/home/board/{{board.id}}"
+        style="
+          background-color: #edf2fc;
+          color: #333;
+          width: 100px;
+          height: 100px;
+          padding: 10px;
+          margin: 15px;
+          border-radius: 4px;
+        "
+        *ngFor="let board of boards"
+      >
+        {{ board.name }}
+      </div>
+    </div>
+  </div>
+  

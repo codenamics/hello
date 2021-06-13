@@ -12,6 +12,7 @@ export class KanbanItemComponent implements OnInit {
   @Input()
   item: any
   ngOnInit(): void {
+
   }
 
 }
