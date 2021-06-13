@@ -1,20 +1,10 @@
+import { list } from "./list";
+
 export interface board{
     id: string;
     name: string;
-    lists: lists[]
+    lists: list[]
 }
 
- interface lists{
-    id: string;
-    title: string;
-    order: number,
-    items: items[]
+ 
 
-}
- interface items{
-    id: string;
-    title: string;
-    order: number,
-  
-
-}
