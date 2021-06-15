@@ -83,11 +83,11 @@ namespace API.Controllers {
 
             var list = new List<Item> ();
 
-            var newBoardListOrder = new AnnotateOrder<Item> ().AnnotatedOrder (items.previous.items);
-            CreateNewItemList (list, newBoardListOrder, items.previous.id);
+            var newBoardListOrder = new AnnotateOrder<Item> ().AnnotatedOrder (items.container.items);
+            CreateNewItemList (list, newBoardListOrder, items.container.id);
 
-            var listTwoAnn = new AnnotateOrder<Item> ().AnnotatedOrder (items.current.items);
-            CreateNewItemList (list, listTwoAnn, items.current.id);
+            var listTwoAnn = new AnnotateOrder<Item> ().AnnotatedOrder (items.previousContainer.items);
+            CreateNewItemList (list, listTwoAnn, items.previousContainer.id);
             _itemRepository.UpdateItems (list);
 
             if (await _boardRepository.SaveChanges ()) return Ok ();

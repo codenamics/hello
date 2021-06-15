@@ -11,8 +11,8 @@ namespace API.Entity
 
     public class ListItemBetweenListsDTO
     {
-        public ListItemDTO previous { get; set; }
-        public ListItemDTO current { get; set; }
+        public ListItemDTO container { get; set; }
+        public ListItemDTO previousContainer { get; set; }
     }
     
 }

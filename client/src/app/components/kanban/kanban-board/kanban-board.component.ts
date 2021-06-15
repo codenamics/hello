@@ -6,6 +6,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { board } from 'src/app/_models/board';
+import { ItemOrderBeTweenLists } from 'src/app/_models/itemBetweenListsOrder';
 import { list } from 'src/app/_models/list';
 
 import { BoardService } from 'src/app/_services/board.service';
@@ -57,12 +58,24 @@ export class KanbanBoardComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+      let newListOrderItem : ItemOrderBeTweenLists = {
+        container: {
+          id: event.container.id,
+          items: [...event.container.data],
+        },
+        previousContainer: {
+          id: event.previousContainer.id,
+          items: [...event.previousContainer.data],
+        },
+      };
+
+      this.listsService
+        .reOrderItemBetweenLists(newListOrderItem)
+        .subscribe(() => {});
     }
   }
   dropColumns(event: CdkDragDrop<any[]>) {
     moveItemInArray(this.board.lists, event.previousIndex, event.currentIndex);
-
-    console.log(this.board);
     var newListOrder: list[] = this.board.lists.map((x) => ({
       id: x.id,
       title: x.title,
