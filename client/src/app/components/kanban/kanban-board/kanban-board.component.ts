@@ -10,6 +10,7 @@ import { ItemOrderBeTweenLists } from 'src/app/_models/itemBetweenListsOrder';
 import { list } from 'src/app/_models/list';
 
 import { BoardService } from 'src/app/_services/board.service';
+import { ItemService } from 'src/app/_services/item.service';
 import { ListsService } from 'src/app/_services/lists.service';
 
 @Component({
@@ -23,7 +24,8 @@ export class KanbanBoardComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private boardService: BoardService,
-    private listsService: ListsService
+    private listsService: ListsService,
+    private itemService: ItemService
   ) {}
 
   ngOnInit() {
@@ -46,10 +48,8 @@ export class KanbanBoardComponent implements OnInit {
         event.currentIndex
       );
 
-      // var dd = this.board.arr.filter(
-      //   (x: any) => x.id.toString() == event.container.id.toString()
-      // );
-      // console.log(dd);
+      
+    this.itemService.reOrderItems(event.container.id ,event.container.data).subscribe(()=>{})
     } else {
       console.log(event);
       transferArrayItem(
