@@ -1,5 +1,6 @@
 <div style="padding: 20px">
-    <button class="button-standard-item" (click)="addBoard()">+ New Item</button>
+
+    <button (click)="openDialog()" class="button-standard-item">+ New Item</button>
     <div
       style="display: flex; flex-direction: row"
       *ngIf="boards.length != 0 && !loading"
@@ -16,7 +17,7 @@
         "
         *ngFor="let board of boards"
       >
-        {{ board.name }}
+        {{ board.title }}
       </div>
     </div>
   </div>

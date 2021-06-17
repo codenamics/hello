@@ -8,12 +8,14 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import { HomeComponent } from './components/home/home.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { NavComponent } from './components/nav/nav.component';
-
+import { FormsModule } from '@angular/forms';
 import { KanbanBoardComponent } from './components/kanban/kanban-board/kanban-board.component';
 import { KanbanListComponent } from './components/kanban/kanban-list/kanban-list.component';
 import { KanbanItemComponent } from './components/kanban/kanban-item/kanban-item.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { KanbanBoardsComponent } from './components/kanban/kanban-boards/kanban-boards.component';
+import { ModalComponent } from './components/modal/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -25,14 +27,18 @@ import { KanbanBoardsComponent } from './components/kanban/kanban-boards/kanban-
     KanbanListComponent,
     KanbanItemComponent,
 
-    KanbanBoardsComponent
+    KanbanBoardsComponent,
+
+    ModalComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    DragDropModule
+    DragDropModule,
+    FormsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 <div style="margin: 20px">
-  <button class="button-standard-item">+ New List</button>
+  <button class="button-standard-item" (click)="openDialog()">+ New List</button>
 
   <div *ngIf="board?.lists?.length === 0 && loading">Loading</div>
   <div

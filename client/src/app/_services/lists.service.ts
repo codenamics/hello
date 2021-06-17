@@ -11,6 +11,10 @@ export class ListsService {
   baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
+  addList(id: string, list: list){
+    return this.http.post(this.baseUrl + 'list/' + id,  list);
+  }
+
   reOrderLists(id: string, lists: list[]){
     return this.http.put(this.baseUrl + 'list/' + id,  lists);
   }

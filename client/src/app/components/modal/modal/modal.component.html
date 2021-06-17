@@ -1,0 +1,33 @@
+<div class="fixActionRow">
+  <h1 mat-dialog-title>{{data.placeholder}}</h1>
+  <div mat-dialog-content>
+    <input
+      placeholder="{{data.placeholder}}"
+      style="
+      width: 95%;
+      height: 40px;
+      padding-left: 5px;
+      border: 1px solid #abc5fa; border-radius: 4px"
+      [(ngModel)]="data.title"
+    />
+  </div>
+
+  <div class="spacer"></div>
+
+  <div mat-dialog-actions align="end">
+    <button
+      style="margin-right: 10px"
+      class="button-standard-item"
+      (click)="onNoClick()"
+    >
+      Cancel
+    </button>
+    <button
+      class="button-standard-item"
+      [mat-dialog-close]="data"
+      cdkFocusInitial
+    >
+      Add
+    </button>
+  </div>
+</div>

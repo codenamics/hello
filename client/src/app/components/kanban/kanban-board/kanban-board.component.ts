@@ -4,14 +4,16 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { board } from 'src/app/_models/board';
 import { ItemOrderBeTweenLists } from 'src/app/_models/itemBetweenListsOrder';
 import { list } from 'src/app/_models/list';
-
+import { v4 as uuidv4 } from 'uuid';
 import { BoardService } from 'src/app/_services/board.service';
 import { ItemService } from 'src/app/_services/item.service';
 import { ListsService } from 'src/app/_services/lists.service';
+import { ModalComponent } from '../../modal/modal/modal.component';
 
 @Component({
   selector: 'app-kanban-board',
@@ -19,13 +21,15 @@ import { ListsService } from 'src/app/_services/lists.service';
   styleUrls: ['./kanban-board.component.css'],
 })
 export class KanbanBoardComponent implements OnInit {
+  title!: string;
   board!: board;
   loading: boolean | undefined;
   constructor(
     private route: ActivatedRoute,
     private boardService: BoardService,
     private listsService: ListsService,
-    private itemService: ItemService
+    private itemService: ItemService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -88,5 +92,24 @@ export class KanbanBoardComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '350px',
+      height: '200px',
+      data: {title: this.title, placeholder: "List title"}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      var newList : list = {
+        id:  uuidv4(),
+        title: result.title,
+        items: []
+      }
+      this.listsService.addList(this.board.id,newList).subscribe(list =>{
+         this.board.lists.unshift(newList)
+         this.loading = false
+      })
+    });
   }
 }

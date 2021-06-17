@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {  stored_data } from 'src/app/_models/model';
+
 
 @Component({
   selector: 'app-kanban-item',

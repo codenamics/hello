@@ -2,7 +2,7 @@ import { list } from "./list";
 
 export interface board{
     id: string;
-    name: string;
+    title: string;
     lists: list[]
 }
 
