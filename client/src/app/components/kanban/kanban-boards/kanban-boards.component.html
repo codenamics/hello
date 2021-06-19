@@ -14,10 +14,14 @@
           padding: 10px;
           margin: 15px;
           border-radius: 4px;
+          display: flex;
+          justify-content: space-between;
         "
         *ngFor="let board of boards"
       >
+      
         {{ board.title }}
+        <span (click)="deleteBoard(board.id, board)" style="font-size: 24px; font-weight: 800;">x</span>
       </div>
     </div>
   </div>

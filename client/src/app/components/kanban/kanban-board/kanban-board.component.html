@@ -1,5 +1,7 @@
 <div style="margin: 20px">
-  <button class="button-standard-item" (click)="openDialog()">+ New List</button>
+  <button class="button-standard-item" (click)="addList()">
+    + New List
+  </button>
 
   <div *ngIf="board?.lists?.length === 0 && loading">Loading</div>
   <div
@@ -28,27 +30,6 @@
     cdkDropListOrientation="horizontal"
     (cdkDropListDropped)="dropColumns($event)"
   >
-    <div cdkDropListGroup class="container" cdkScrollable>
-      <div class="list-container" *ngFor="let item of board.lists" cdkDrag>
-        <div
-          class="custom-placeholder"
-          style="border-color: red"
-          *cdkDragPlaceholder
-        ></div>
-        <div class="list-header">
-          <div style="font-weight: 600; font-size: 20px">{{ item.title }}</div>
-          <button class="button-standard-item">+ New Item</button>
-        </div>
-        <div
-          [id]="item.id.toString()"
-          cdkDropList
-          [cdkDropListData]="item.items"
-          class="list"
-          (cdkDropListDropped)="drop($event)"
-        >
-          <app-kanban-item [item]="item"></app-kanban-item>
-        </div>
-      </div>
-    </div>
+  <app-kanban-list [board]="board"></app-kanban-list>
   </div>
 </div>

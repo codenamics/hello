@@ -17,29 +17,37 @@ export class KanbanBoardsComponent implements OnInit {
   constructor(private BoardService: BoardService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.BoardService.getAllBoards().subscribe((boards)=>{
+    this.BoardService.getAllBoards().subscribe((boards) => {
       this.boards = boards;
     })
   }
-  
+  deleteBoard(id: string, board: board) {
+    this.BoardService.deleteBoard(id).subscribe(() => {
+      const index = this.boards.indexOf(board)
+      if (index > -1) {
+      this.boards = this.boards.splice(index, 1);
+      }
+    })
+  }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '350px',
       height: '200px',
-      data: {title: this.title, placeholder: "Board title"}
+      data: { title: this.title, placeholder: "Board title" }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      var board : board = {
-        id:  uuidv4(),
+      var board: board = {
+        id: uuidv4(),
         title: result.title,
         lists: []
       }
-      this.BoardService.addBoard(board).subscribe(board =>{
-         this.boards.push(board)
-         this.loading = false
+      this.BoardService.addBoard(board).subscribe(board => {
+        this.boards.push(board)
+        this.loading = false
       })
-     
+
     });
   }
 }

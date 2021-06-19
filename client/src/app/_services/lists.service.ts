@@ -14,6 +14,9 @@ export class ListsService {
   addList(id: string, list: list){
     return this.http.post(this.baseUrl + 'list/' + id,  list);
   }
+  deleteList(boardId: string, listId: string, lists: any){
+    return this.http.put(this.baseUrl + `list/${boardId}/${listId}`, lists);
+  }
 
   reOrderLists(id: string, lists: list[]){
     return this.http.put(this.baseUrl + 'list/' + id,  lists);

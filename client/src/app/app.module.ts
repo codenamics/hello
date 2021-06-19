@@ -13,7 +13,7 @@ import { KanbanBoardComponent } from './components/kanban/kanban-board/kanban-bo
 import { KanbanListComponent } from './components/kanban/kanban-list/kanban-list.component';
 import { KanbanItemComponent } from './components/kanban/kanban-item/kanban-item.component';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {MatIconModule} from '@angular/material/icon';
 import { KanbanBoardsComponent } from './components/kanban/kanban-boards/kanban-boards.component';
 import { ModalComponent } from './components/modal/modal/modal.component';
 
@@ -38,7 +38,8 @@ import { ModalComponent } from './components/modal/modal/modal.component';
     BrowserAnimationsModule,
     DragDropModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

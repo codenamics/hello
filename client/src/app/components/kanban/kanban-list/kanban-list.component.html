@@ -1,0 +1,29 @@
+<div cdkDropListGroup class="container" cdkScrollable>
+    <div class="list-container" *ngFor="let item of board.lists" cdkDrag>
+      <div
+        class="custom-placeholder"
+        style="border-color: red"
+        *cdkDragPlaceholder
+      ></div>
+      <div class="list-header">
+        <div style="font-weight: 600; font-size: 20px">{{ item.title }}</div>
+        <div style="display: flex; align-items: center">
+          <button (click)="addItem(item.id)" class="button-standard-item" style="margin-right: 10px">
+            + New Item
+          </button>
+          <button (click)="deleteList(board.id, item)" class="button-standard-item" style="padding: 5px; background-color: #fcedef;">
+            <mat-icon [ngStyle]="{'color':'#d3434a'}">delete_forever</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div
+        [id]="item.id.toString()"
+        cdkDropList
+        [cdkDropListData]="item.items"
+        class="list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-kanban-item [item]="item"></app-kanban-item>
+      </div>
+    </div>
+  </div>

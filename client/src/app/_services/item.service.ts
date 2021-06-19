@@ -14,5 +14,8 @@ export class ItemService {
   reOrderItems(id: string, items: item[]){
     return this.http.put(this.baseUrl + 'item/itemOrder/' + id,  items);
   }
+  addItem(id: string, item: item){
+    return this.http.post(this.baseUrl + 'item/' + id,  item);
+  }
   
 }

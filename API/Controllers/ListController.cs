@@ -102,7 +102,7 @@ namespace API.Controllers
             return Ok(list);
         }
 
-        [HttpDelete("{boardId}/{listId}")]
+        [HttpPut("{boardId}/{listId}")]
         public async Task<ActionResult> DeleteList(Guid boardId, Guid listId, [FromBody] List<List> lists)
         {
             var board = await _boardRepository.GetBoardAsync(boardId);
