@@ -34,7 +34,7 @@ export class KanbanBoardsComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '350px',
       height: '200px',
-      data: { title: this.title, placeholder: "Board title" }
+      data: { title: this.title}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -44,7 +44,7 @@ export class KanbanBoardsComponent implements OnInit {
         lists: []
       }
       this.BoardService.addBoard(board).subscribe(board => {
-        this.boards.push(board)
+        this.boards.unshift(board)
         this.loading = false
       })
 

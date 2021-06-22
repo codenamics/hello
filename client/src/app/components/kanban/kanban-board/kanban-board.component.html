@@ -2,7 +2,7 @@
   <button class="button-standard-item" (click)="addList()">
     + New List
   </button>
-
+  <mat-spinner  *ngIf="loading"></mat-spinner>
   <div *ngIf="board?.lists?.length === 0 && loading">Loading</div>
   <div
     style="

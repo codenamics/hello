@@ -37,12 +37,15 @@ namespace API.Controllers {
                 }
                 list.Items.Add (new Item {
                     Id = itemToAdd.Id,
-                        Title = itemToAdd.Title
+                        Title = itemToAdd.Title,
+                        Description = itemToAdd.Description
+
                 });
             } else {
                 list.Items.Add (new Item {
                     Id = itemToAdd.Id,
-                        Title = itemToAdd.Title
+                    Title = itemToAdd.Title,
+                    Description = itemToAdd.Description
                 });
             }
             if (await _boardRepository.SaveChanges ()) return Ok ();

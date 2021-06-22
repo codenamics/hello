@@ -1,28 +1,33 @@
 <div style="padding: 20px">
-
-    <button (click)="openDialog()" class="button-standard-item">+ New Item</button>
+  <button (click)="openDialog()" class="button-standard-item">
+    + New Board
+  </button>
+  <mat-spinner *ngIf="boards.length == 0 && loading"></mat-spinner>
+  <div
+    style="display: flex; flex-direction: row"
+    *ngIf="boards.length != 0 && !loading"
+  >
     <div
-      style="display: flex; flex-direction: row"
-      *ngIf="boards.length != 0 && !loading"
+      routerLink="/home/board/{{ board.id }}"
+      style="
+        background-color: #edf2fc;
+        color: #333;
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+        margin: 15px;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+      "
+      *ngFor="let board of boards"
     >
-      <div routerLink="/home/board/{{board.id}}"
-        style="
-          background-color: #edf2fc;
-          color: #333;
-          width: 100px;
-          height: 100px;
-          padding: 10px;
-          margin: 15px;
-          border-radius: 4px;
-          display: flex;
-          justify-content: space-between;
-        "
-        *ngFor="let board of boards"
+      {{ board.title }}
+      <span
+        (click)="deleteBoard(board.id, board)"
+        style="font-size: 24px; font-weight: 800"
+        >x</span
       >
-      
-        {{ board.title }}
-        <span (click)="deleteBoard(board.id, board)" style="font-size: 24px; font-weight: 800;">x</span>
-      </div>
     </div>
   </div>
-  
+</div>

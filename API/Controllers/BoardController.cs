@@ -20,10 +20,10 @@ namespace API.Controllers {
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateBoard ([FromBody] Board board) {
-
-            _boardRepository.CreateBoard (board);
-            if (await _boardRepository.SaveChanges ()) return Ok (board);
+        public async Task<ActionResult> CreateBoard ([FromBody] BoardCreationDTO boardCreationDTO) {
+            var newBoard = _mapper.Map<Board>(boardCreationDTO);
+            _boardRepository.CreateBoard (newBoard);
+            if (await _boardRepository.SaveChanges ()) return Ok (newBoard);
 
             return BadRequest ("Failed to create board");
         }

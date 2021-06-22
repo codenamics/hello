@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { list } from 'src/app/_models/list';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ItemOrderBeTweenLists } from 'src/app/_models/itemBetweenListsOrder';
+import { ItemModalComponent } from '../../modal/item-modal/item-modal.component';
 @Component({
   selector: 'app-kanban-list',
   templateUrl: './kanban-list.component.html',
@@ -16,6 +17,7 @@ import { ItemOrderBeTweenLists } from 'src/app/_models/itemBetweenListsOrder';
 })
 export class KanbanListComponent implements OnInit {
   title!: string;
+  description!: string
   @Input() board!: board;
   loading: boolean | undefined;
   constructor(
@@ -29,16 +31,17 @@ export class KanbanListComponent implements OnInit {
   ngOnInit(): void {
   }
   addItem(id: string): void {
-    const dialogRef = this.dialog.open(ModalComponent, {
+    const dialogRef = this.dialog.open(ItemModalComponent, {
       width: '350px',
-      height: '200px',
-      data: { title: this.title, placeholder: 'Item title' },
+      height: '270px',
+      data: { title: this.title, description: this.description },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       var newItem: item = {
         id: uuidv4(),
         title: result.title,
+        description: result.description,
         order: 0
         
       };

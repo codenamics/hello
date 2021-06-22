@@ -63,15 +63,19 @@ export class KanbanBoardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      var newList: list = {
-        id: uuidv4(),
-        title: result.title,
-        items: [],
-      };
-      this.listsService.addList(this.board.id, newList).subscribe((list) => {
-        this.board.lists.unshift(newList);
-        this.loading = false;
-      });
+      console.log(result)
+      if(result.title !== undefined){
+        var newList: list = {
+          id: uuidv4(),
+          title: result.title,
+          items: [],
+        };
+        this.listsService.addList(this.board.id, newList).subscribe((list) => {
+          this.board.lists.unshift(newList);
+          this.loading = false;
+        });
+      }
+     
     });
   }
  
