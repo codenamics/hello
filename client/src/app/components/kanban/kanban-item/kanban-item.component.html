@@ -1,4 +1,4 @@
-<div class="item-container" *ngFor="let items of item.items" cdkDrag>
+<div (dblclick)="edit(item)" class="item-container" *ngFor="let item of items" cdkDrag>
   <div class="item-custom-placeholder" *cdkDragPlaceholder></div>
   <span
     style="
@@ -7,7 +7,7 @@
       font-weight: 800;
       color: #12203e;
     "
-    >{{items.title}}</span
+    >{{item.title}}</span
   >
-  {{ items.description }}
+  {{ item.description }}
 </div>

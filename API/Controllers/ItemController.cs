@@ -52,6 +52,13 @@ namespace API.Controllers {
 
             return BadRequest ("Failed to add item");
         }
+         [HttpPut("updateItem")]
+        public async Task<ActionResult> UpdateItem ([FromBody] Item itemToUpdate) {
+            _itemRepository.UpdateItem(itemToUpdate);
+            if (await _boardRepository.SaveChanges ()) return Ok ();
+
+            return BadRequest ("Failed to update item");
+        }
 
         [HttpPut ("itemOrder/{id}")]
         public async Task<ActionResult> UpdateItemsOrderInList (Guid id, [FromBody] List<Item> items) {

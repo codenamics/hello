@@ -19,9 +19,12 @@ namespace API.Data {
         public void DeleteItem (Item item) {
             _context.Entry (item).State = EntityState.Deleted;
         }
-        public async Task<Item> GetItemAsync(Guid id){
-           return await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<Item> GetItemAsync (Guid id) {
+            return await _context.Items.FirstOrDefaultAsync (x => x.Id == id);
         }
 
+        public void UpdateItem (Item item) {
+            _context.Entry (item).State = EntityState.Modified;
+        }
     }
 }
