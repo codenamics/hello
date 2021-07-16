@@ -20,7 +20,7 @@ namespace API.Controllers {
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateBoard ([FromBody] BoardCreationDTO boardCreationDTO) {
+        public async Task<ActionResult> CreateBoard ([FromBody] BoardDTO boardCreationDTO) {
             var newBoard = _mapper.Map<Board>(boardCreationDTO);
             _boardRepository.CreateBoard (newBoard);
             if (await _boardRepository.SaveChanges ()) return Ok (newBoard);
@@ -46,8 +46,8 @@ namespace API.Controllers {
             return Ok (board);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateBoard ([FromBody] BoardUpdateDTO boardUpdateDTO) {
+        [HttpPut()]
+        public async Task<IActionResult> UpdateBoard ([FromBody] BoardDTO boardUpdateDTO) {
             var updatedBoard = _mapper.Map<Board> (boardUpdateDTO);
             _boardRepository.UpdateBoard (updatedBoard);
 
@@ -57,7 +57,7 @@ namespace API.Controllers {
         }
 
         [HttpDelete ("{id}")]
-        public async Task<ActionResult> DeleteBoard (Guid id) {
+        public async Task<IActionResult> DeleteBoard (Guid id) {
             var board = await _boardRepository.GetBoardAsync (id);
 
             _boardRepository.DeleteBoard (board);
