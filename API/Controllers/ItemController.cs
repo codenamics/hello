@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.DTO;
 using API.Entity;
 using API.Helpers;
 using API.Interfaces;
@@ -11,50 +12,45 @@ namespace API.Controllers {
     [Route ("api/item")]
     public class ItemController : ControllerBase {
 
-        private readonly IMapper _mapper;
         private readonly IListRepository _listRepository;
         private readonly IItemRepository _itemRepository;
         private readonly IBoardRepository _boardRepository;
+        private readonly IMapper _mapper;
 
-        public ItemController (IListRepository listRepository, IItemRepository itemRepository, IBoardRepository boardRepository) {
+        public ItemController (IListRepository listRepository, IItemRepository itemRepository, IBoardRepository boardRepository, IMapper mapper) {
             _boardRepository = boardRepository;
             _itemRepository = itemRepository;
             _listRepository = listRepository;
+            _mapper = mapper;
 
         }
 
         [HttpPost ("{id}")]
-        public async Task<ActionResult> AddItemToList (Guid id, [FromBody] Item itemToAdd) {
+        public async Task<ActionResult> AddItemToList (Guid id, [FromBody] ItemDTO itemToAddDTO) {
             var list = await _listRepository.GetListAsync (id);
-        if (list == null) {
+            if (list == null) {
                 return NotFound ();
             }
+            var newItem = _mapper.Map<Item> (itemToAddDTO);
+
             if (list.Items.Count != 0) {
 
                 foreach (var item in list.Items) {
                     item.Id = item.Id;
                     item.Order = item.Order + 1;
                 }
-                list.Items.Add (new Item {
-                    Id = itemToAdd.Id,
-                        Title = itemToAdd.Title,
-                        Description = itemToAdd.Description
-
-                });
+                list.Items.Add (newItem);
             } else {
-                list.Items.Add (new Item {
-                    Id = itemToAdd.Id,
-                    Title = itemToAdd.Title,
-                    Description = itemToAdd.Description
-                });
+                list.Items.Add (newItem);
             }
             if (await _boardRepository.SaveChanges ()) return Ok ();
 
             return BadRequest ("Failed to add item");
         }
-         [HttpPut("updateItem")]
+
+        [HttpPut ("updateItem")]
         public async Task<ActionResult> UpdateItem ([FromBody] Item itemToUpdate) {
-            _itemRepository.UpdateItem(itemToUpdate);
+            _itemRepository.UpdateItem (itemToUpdate);
             if (await _boardRepository.SaveChanges ()) return Ok ();
 
             return BadRequest ("Failed to update item");
@@ -133,15 +129,14 @@ namespace API.Controllers {
 
             return BadRequest ("Failed to delete list");
         }
-        private List<Item> CreateNewItemList (List<Item> list, List<Item> items, Guid id) 
-        {
+        private List<Item> CreateNewItemList (List<Item> list, List<Item> items, Guid id) {
             foreach (var item in items) {
                 list.Add (new Item {
                     Id = item.Id,
-                    Title = item.Title,
-                    Description = item.Description,
-                    ListId = id,
-                    Order = item.Order
+                        Title = item.Title,
+                        Description = item.Description,
+                        ListId = id,
+                        Order = item.Order
                 });
             }
             return list;
