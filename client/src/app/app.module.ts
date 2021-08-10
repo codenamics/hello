@@ -18,6 +18,7 @@ import { KanbanBoardsComponent } from './components/kanban/kanban-boards/kanban-
 import { ModalComponent } from './components/modal/modal/modal.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ItemModalComponent } from './components/modal/item-modal/item-modal.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ItemModalComponent } from './components/modal/item-modal/item-modal.com
     FormsModule,
     MatDialogModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+   
   ],
   providers: [],
   bootstrap: [AppComponent]
