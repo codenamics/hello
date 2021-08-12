@@ -40,7 +40,7 @@ export class KanbanBoardComponent implements OnInit {
       });
     });
   }
-  dropColumns(event: CdkDragDrop<any[]>) {
+  dropColumns(event: CdkDragDrop<boolean, any>) {
     moveItemInArray(this.board.lists, event.previousIndex, event.currentIndex);
     var newListOrder: list[] = this.board.lists.map((x) => ({
       id: x.id,

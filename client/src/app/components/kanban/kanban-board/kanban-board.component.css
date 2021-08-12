@@ -1,0 +1,9 @@
+.col_container {
+    height: 100vh;
+    width: 96%;
+
+    padding: 23px 0px;
+    
+    overflow-x: auto;
+    overflow-y: hidden;
+  }

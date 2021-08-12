@@ -61,6 +61,9 @@ export class KanbanListComponent implements OnInit {
 
     });
   }
+  getConnectedList(): string[] {
+    return this.board.lists.map(x => `${x.id}`);
+  }
   drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       console.log(event);
@@ -75,7 +78,7 @@ export class KanbanListComponent implements OnInit {
         .reOrderItems(event.container.id, event.container.data)
         .subscribe(() => { });
     } else {
-      console.log(event);
+      
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -92,7 +95,7 @@ export class KanbanListComponent implements OnInit {
           items: [...event.previousContainer.data],
         },
       };
-
+      console.log(newListOrderItem)
       this.listsService
         .reOrderItemBetweenLists(newListOrderItem)
         .subscribe(() => { });

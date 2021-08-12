@@ -19,6 +19,7 @@ import { ModalComponent } from './components/modal/modal/modal.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ItemModalComponent } from './components/modal/item-modal/item-modal.component';
 import { RouterModule } from '@angular/router';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { RouterModule } from '@angular/router';
     MatDialogModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    ScrollingModule
    
   ],
   providers: [],

@@ -1,13 +1,37 @@
-<div (dblclick)="edit(item)" class="item-container" *ngFor="let item of items" cdkDrag>
+<div
+  (dblclick)="edit(card)"
+  class="item-container"
+  *ngFor="let card of items; let cardIndex = index"
+  cdkDrag
+  [cdkDragData]="card"
+>
   <div class="item-custom-placeholder" *cdkDragPlaceholder></div>
+ <div style="display: flex; flex-direction: column; width: 80%;">
   <span
     style="
       margin-bottom: 15px;
       font-size: 17px;
       font-weight: 800;
       color: #12203e;
+      white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
     "
-    >{{item.title}}</span
+    >{{ card.title }}</span
   >
-  {{ item.description }}
+ <span style=" white-space: nowrap;
+ overflow: hidden;
+ display: inline-block;
+ text-overflow: ellipsis;">{{ card.description }}</span> 
+</div>
+<div style="display: flex; flex-direction: column;">
+  
+  <button  class="button-standard-item" style="padding: 3px; ">
+    <mat-icon [ngStyle]="{'color':'#4379d3'}">edit</mat-icon>
+  </button>
+  <button  class="button-standard-item" style="padding: 3px; margin-top: 8px; background-color: #fcedef;">
+    <mat-icon [ngStyle]="{'color':'#d3434a'}">delete_forever</mat-icon>
+  </button>
+</div>
 </div>
