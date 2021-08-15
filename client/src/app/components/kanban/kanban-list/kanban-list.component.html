@@ -1,71 +1,44 @@
 <div
-    cdkDropListGroup
-    class="column_wrapper"
-    *ngFor="let column of board?.lists"
-    cdkDrag
-    [cdkDragData]="column"
-    class="column"
-  >
-   
-    <div cdkDragHandle class="list-header">
-      <div style="font-weight: 600; font-size: 20px">{{ column.title }}</div>
-      <div style="display: flex; align-items: center">
-        <button (click)="addItem(column.id)" class="button-standard-item" style="margin-right: 10px">
-          + New Item
-        </button>
-        <button (click)="deleteList(board.id, column)" class="button-standard-item" style="padding: 5px; background-color: #fcedef;">
-          <mat-icon [ngStyle]="{'color':'#d3434a'}">delete_forever</mat-icon>
-        </button>
-      </div>
-    </div>
-    <div
-      cdkDropList
-      [id]="column.id"
-      class="card_container"
-      [cdkDropListData]="column.items"
-      (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="getConnectedList()"
-      
-    >
-     <div style="padding: 10px; text-align: center;" *ngIf="column.items.length === 0">I am empty:/</div>
-      <app-kanban-item [items]="column.items"></app-kanban-item>
+  cdkDropListGroup
+  class="column"
+  *ngFor="let column of board?.lists"
+  cdkDrag
+  [cdkDragData]="column"
+>
+  <div cdkDragHandle class="card-header">
+    <div style="font-weight: 600; font-size: 20px; display: flex; flex-direction: row; align-items: center;">{{ column.title }}    <div class="button-standard-item" style="padding: 5px 10px; margin-left: 12px;">{{column.items.length.toString()}}</div></div>
+
+    <div style="display: flex; align-items: center">
+      <button
+        (click)="addItem(column.id)"
+        class="button-standard-item"
+        style="margin-right: 10px"
+      >
+        + New Item
+      </button>
+      <button
+        (click)="deleteList(board.id, column)"
+        class="button-standard-item"
+        style="padding: 5px; background-color: #fcedef"
+      >
+        <mat-icon [ngStyle]="{ color: '#d3434a' }">delete_forever</mat-icon>
+      </button>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-<!-- <div cdkDropListGroup class="container" cdkScrollable>
-    <div class="list-container" *ngFor="let item of board.lists" cdkDrag>
-      <div
-        class="custom-placeholder"
-        style="border-color: red"
-        *cdkDragPlaceholder
-      ></div>
-      <div class="list-header">
-        <div style="font-weight: 600; font-size: 20px">{{ item.title }}</div>
-        <div style="display: flex; align-items: center">
-          <button (click)="addItem(item.id)" class="button-standard-item" style="margin-right: 10px">
-            + New Item
-          </button>
-          <button (click)="deleteList(board.id, item)" class="button-standard-item" style="padding: 5px; background-color: #fcedef;">
-            <mat-icon [ngStyle]="{'color':'#d3434a'}">delete_forever</mat-icon>
-          </button>
-        </div>
-      </div>
-      <div
-        [id]="item.id.toString()"
-        cdkDropList
-        [cdkDropListData]="item.items"
-        class="list"
-        (cdkDropListDropped)="drop($event)"
-      >
-        <app-kanban-item [items]="item.items"></app-kanban-item>
-      </div>
+  <div
+    cdkDropList
+    [id]="column.id"
+    class="card-container"
+    [cdkDropListData]="column.items"
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListConnectedTo]="getConnectedList()"
+  >
+    <div
+      style="padding: 10px; text-align: center"
+      *ngIf="column.items.length === 0"
+    >
+      I am empty:/
     </div>
-  </div> -->
+    <app-kanban-item [items]="column.items"></app-kanban-item>
+  </div>
+</div>

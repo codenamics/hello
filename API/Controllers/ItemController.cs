@@ -118,8 +118,8 @@ namespace API.Controllers
             return BadRequest("Failed to update list");
         }
 
-        [HttpDelete("{listId}/{itemId}")]
-        public async Task<ActionResult> DeleteList(Guid listId, Guid itemId, [FromBody] List<Item> items)
+        [HttpPut("{listId}/{itemId}")]
+        public async Task<ActionResult> DeleteListItem(Guid listId, Guid itemId, [FromBody] List<Item> items)
         {
             var list = await _listRepository.GetListAsync(listId);
             var itemToRemove = await _itemRepository.GetItemAsync(itemId);

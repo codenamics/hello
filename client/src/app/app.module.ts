@@ -18,9 +18,9 @@ import { KanbanBoardsComponent } from './components/kanban/kanban-boards/kanban-
 import { ModalComponent } from './components/modal/modal/modal.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ItemModalComponent } from './components/modal/item-modal/item-modal.component';
-import { RouterModule } from '@angular/router';
-import {ScrollingModule} from '@angular/cdk/scrolling';
 
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +44,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     MatDialogModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    ScrollingModule
+    ScrollingModule,
+    MatProgressBarModule
    
   ],
   providers: [],

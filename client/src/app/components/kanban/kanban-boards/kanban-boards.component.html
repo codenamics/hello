@@ -2,24 +2,14 @@
   <button (click)="openDialog()" class="button-standard-item">
     + New Board
   </button>
-  <mat-spinner *ngIf="boards.length == 0 && loading"></mat-spinner>
+  <mat-spinner *ngIf="boards.length === 0 && loading"></mat-spinner>
   <div
     style="display: flex; flex-direction: row"
-    *ngIf="boards.length != 0 && !loading"
+    *ngIf="boards.length !== 0 && !loading"
   >
     <div
       routerLink="/home/board/{{ board.id }}"
-      style="
-        background-color: #edf2fc;
-        color: #333;
-        width: 100px;
-        height: 100px;
-        padding: 10px;
-        margin: 15px;
-        border-radius: 4px;
-        display: flex;
-        justify-content: space-between;
-      "
+     class="board"
       *ngFor="let board of boards"
     >
       {{ board.title }}

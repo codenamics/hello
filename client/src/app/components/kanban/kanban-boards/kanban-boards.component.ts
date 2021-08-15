@@ -7,47 +7,45 @@ import { ModalComponent } from '../../modal/modal/modal.component';
 @Component({
   selector: 'app-kanban-boards',
   templateUrl: './kanban-boards.component.html',
-  styleUrls: ['./kanban-boards.component.css']
+  styleUrls: ['./kanban-boards.component.css'],
 })
 export class KanbanBoardsComponent implements OnInit {
-
   title!: string;
   boards: board[] = [];
   loading: boolean = false;
-  constructor(private BoardService: BoardService, public dialog: MatDialog) { }
+  constructor(private BoardService: BoardService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.BoardService.getAllBoards().subscribe((boards) => {
       this.boards = boards;
-    })
+    });
   }
   deleteBoard(id: string, board: board) {
     this.BoardService.deleteBoard(id).subscribe(() => {
-      const index = this.boards.indexOf(board)
+      const index = this.boards.indexOf(board);
       if (index > -1) {
-      this.boards = this.boards.splice(index, 1);
+        this.boards = this.boards.splice(index, 1);
       }
-    })
+    });
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '350px',
       height: '200px',
-      data: { title: this.title}
+      data: { title: this.title },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       var board: board = {
         id: uuidv4(),
         title: result.title,
-        lists: []
-      }
-      this.BoardService.addBoard(board).subscribe(board => {
-        this.boards.unshift(board)
-        this.loading = false
-      })
-
+        lists: [],
+      };
+      this.BoardService.addBoard(board).subscribe((board) => {
+        this.boards.unshift(board);
+        this.loading = false;
+      });
     });
   }
 }

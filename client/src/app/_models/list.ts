@@ -1,4 +1,4 @@
-import { item } from "./item";
+import { item } from "./item/item";
 
 export interface list{
     id: string;

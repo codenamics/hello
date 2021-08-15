@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { board } from 'src/app/_models/board';
-import { item } from 'src/app/_models/item';
+
+import { item } from 'src/app/_models/item/item';
+import { itemToDelete } from 'src/app/_models/item/itemToDelete';
 import { ItemService } from 'src/app/_services/item.service';
 import { ItemModalComponent } from '../../modal/item-modal/item-modal.component';
 
@@ -13,10 +14,16 @@ import { ItemModalComponent } from '../../modal/item-modal/item-modal.component'
 export class KanbanItemComponent implements OnInit {
   constructor(public dialog: MatDialog, private itemService: ItemService) {}
   @Input()
-  items: any;
-  ngOnInit(): void {}
-  edit(item: any): void {
-    
+  items!: any;
+  randomNum: number | undefined = 0;
+  ngOnInit(): void {
+    this.random()
+    console.log(this.randomNum)
+  }
+  random(){
+   return this.randomNum = (Math.floor(Math.random() * 11) / Math.floor(Math.random() * 11) + 1) * 10
+  }
+  edit(item: item): void {
     const dialogRef = this.dialog.open(ItemModalComponent, {
       width: '350px',
       height: '270px',
@@ -24,20 +31,27 @@ export class KanbanItemComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      var upItem: any = {
+      var upItem: item = {
         ...item,
         title: result.title,
         description: result.description,
-       
-        
       };
-      console.log(upItem)
+      
       this.itemService.updateItem(upItem).subscribe(() => {
-        const index = this.items.indexOf(item)
+        const index = this.items.indexOf(item);
         if (index > -1) {
-         this.items.splice(index, 1,upItem);
+          this.items.splice(index, 1, upItem);
         }
       });
     });
+  }
+  deleteItem(item: itemToDelete) {
+    const index = this.items.indexOf(item);
+    if (index > -1) {
+      this.items.splice(index, 1);
+    }
+    this.itemService
+      .deleteListItem(item.listId, item.id, this.items)
+      .subscribe(() => {});
   }
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { item } from '../_models/item';
+import { item } from '../_models/item/item';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,9 @@ export class ItemService {
   }
   updateItem(item: any){
     return this.http.put(this.baseUrl + 'item/updateItem/',  item);
+  }
+  deleteListItem(listId: string, itemId: string, itemList: item[]){
+    return this.http.put(this.baseUrl + `item/${listId}/${itemId}`, itemList);
   }
   
 }

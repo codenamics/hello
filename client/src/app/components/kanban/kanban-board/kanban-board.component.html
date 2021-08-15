@@ -1,8 +1,12 @@
 <div style="margin: 20px">
-  <button class="button-standard-item" style="margin-left: 7px;box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;" (click)="addList()">
+  <button
+    class="button-standard-item"
+    style="margin-left: 7px; box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px"
+    (click)="addList()"
+  >
     + New List
   </button>
-  <mat-spinner  *ngIf="loading"></mat-spinner>
+  <mat-spinner *ngIf="loading"></mat-spinner>
   <div *ngIf="board?.lists?.length === 0 && loading">Loading</div>
   <div
     style="
@@ -16,26 +20,17 @@
     "
     *ngIf="board?.lists?.length === 0"
   >
-  :(
+    :(
   </div>
 
-
   <div
-  cdkDropList
-  cdkDropListOrientation="horizontal"
-  [cdkDropListData]="board?.lists?.length !== 0 && !loading"
-  (cdkDropListDropped)="dropColumns($event)"
-  class="col_container"
-  cdkScrollable
->
-<app-kanban-list [board]="board"></app-kanban-list>
-</div>
-
-
-
-
-
-
-
- 
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    [cdkDropListData]="board?.lists?.length !== 0 && !loading"
+    (cdkDropListDropped)="dropColumns($event)"
+    class="lists-container"
+    cdkScrollable
+  >
+    <app-kanban-list [board]="board"></app-kanban-list>
+  </div>
 </div>
