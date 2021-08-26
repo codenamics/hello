@@ -1,0 +1,9 @@
+.grid{
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    row-gap: 15px;
+    
+}
+.mat-dialog-container{
+    padding: 30px !important;
+}

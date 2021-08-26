@@ -36,7 +36,7 @@ namespace API {
             services.AddDbContext<ApplicationDBContext> (
                 options => {
                     var env = Environment.GetEnvironmentVariable ("ASPNETCORE_ENVIRONMENT");
-
+  
                     string connStr;
 
                     // Depending on if in development or production, use either Heroku-provided
@@ -79,7 +79,11 @@ namespace API {
             app.UseHttpsRedirection ();
 
             app.UseRouting ();
-             
+             app.UseCors(x => x.AllowAnyHeader()
+      
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .WithOrigins("http://localhost:4200"));
 
             app.UseAuthorization ();
 

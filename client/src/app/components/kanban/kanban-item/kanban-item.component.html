@@ -5,7 +5,11 @@
   [cdkDragData]="card"
 >
   <div class="item-custom-placeholder" *cdkDragPlaceholder></div>
-  <div style="display: flex; flex-direction: column; width: 83%">
+  <div style="display: flex; flex-direction: column; width: 83%;
+  
+
+  justify-content: space-between;
+  min-height: 110px;">
     <span
       style="
         margin-bottom: 15px;
@@ -25,6 +29,7 @@
         overflow: hidden;
         display: inline-block;
         text-overflow: ellipsis;
+        margin-top: -12px;
       "
       >{{ card.description }}</span
     >
@@ -47,9 +52,16 @@
     "
   >
     <button
-      (click)="edit(card)"
+      (click)="details(card)"
       class="button-standard-item"
       style="padding: 5px"
+    >
+      <mat-icon [ngStyle]="{ color: '#4379d3' }">remove_red_eye</mat-icon>
+    </button>
+    <button
+      (click)="edit(card)"
+      class="button-standard-item"
+      style="padding: 5px; margin: 10px 0;"
     >
       <mat-icon [ngStyle]="{ color: '#4379d3' }">edit</mat-icon>
     </button>

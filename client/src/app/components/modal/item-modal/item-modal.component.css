@@ -7,3 +7,12 @@
   .spacer {
     flex-grow: 1;
   }
+  .grid{
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    row-gap: 10px;
+    
+}
+.mat-dialog-container{
+    padding: 30px !important;
+}

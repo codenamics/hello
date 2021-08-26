@@ -1,0 +1,52 @@
+<div class="fixActionRow">
+  <h1 mat-dialog-title>Details</h1>
+  <div style="margin-top: 5px" mat-dialog-content>
+    <div class="grid">
+      <div style="font-size: 18px; font-weight: 700; padding: 10px 0">
+        Title
+      </div>
+      <div style="
+        padding: 0 20px;
+      display: flex;
+      align-items: center;
+      border-left: 3px solid #97b5f0; display: flex;
+    align-items: center;">{{ data.title }}</div>
+      
+      <div style="font-size: 18px; font-weight: 700; padding: 10px 0">
+        Due Date
+      </div>
+      <div style="
+        padding: 0 20px;
+      display: flex;
+      align-items: center; border-left: 3px solid #97b5f0;">27/Jan/2022</div>
+      <div style="font-size: 18px; font-weight: 700; padding: 10px 0">
+        Description
+      </div>
+      <div style="
+      padding: 0 20px;
+      display: flex;
+      align-items: center; border-left: 3px solid #97b5f0;">
+        {{ data.description }}
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div mat-dialog-actions align="end">
+    <button
+      style="margin-right: 10px"
+      class="button-standard-item"
+      (click)="onNoClick()"
+    >
+      Cancel
+    </button>
+    <button
+      class="button-standard-item"
+      [mat-dialog-close]="data"
+      cdkFocusInitial
+    >
+      Add
+    </button>
+  </div>
+</div>

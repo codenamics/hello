@@ -1,35 +1,59 @@
 <div class="fixActionRow">
-  <h1 mat-dialog-title>Add Item</h1>
-  <div style="margin-top: 5px;" mat-dialog-content>
-    <input
-      placeholder="Title"
-      style="
-        outline: none;
-        width: 95%;
-        height: 45px;
-        padding-left: 10px;
-        margin-bottom: 15px;
-        background-color: #edf2fc;
-        color: #4379d3;
-        border-radius: 4px;
-        border: none;
-      "
-      [(ngModel)]="data.title"
-    />
-    <input
-      placeholder="Description"
-      style="
-        outline: none;
-        border: none;
-        width: 95%;
-        height: 45px;
-        padding-left: 10px;
-        color: #4379d3;
-        background-color: #edf2fc;
-        border-radius: 4px;
-      "
-      [(ngModel)]="data.description"
-    />
+  <h1 mat-dialog-title>New Item</h1>
+  <div style="margin-top: 5px" mat-dialog-content>
+    <div class="grid">
+      <div
+        style="
+          font-size: 18px;
+          font-weight: 700;
+          padding: 10px 0;
+          align-self: center;
+        "
+      >
+        Title
+      </div>
+
+      <input
+        placeholder="Title"
+        style="
+          outline: none;
+          width: 95%;
+          height: 45px;
+          padding-left: 10px;
+
+          background-color: #edf2fc;
+          color: #000;
+          border-radius: 4px;
+          border: none;
+        "
+        [(ngModel)]="data.title"
+      />
+      <div
+        style="
+          font-size: 18px;
+          font-weight: 700;
+          padding: 10px 0;
+          align-self: center;
+        "
+      >
+        Description
+      </div>
+
+      <textarea
+        style="
+          outline: none;
+          border: none;
+          width: 95%;
+min-height: 150px;
+          padding-left: 10px;
+          color: #000;
+          background-color: #edf2fc;
+          border-radius: 4px;
+          line-height: 1.4;
+        "
+        [(ngModel)]="data.description"
+      ></textarea>
+    </div>
   </div>
 
   <div class="spacer"></div>

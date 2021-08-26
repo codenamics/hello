@@ -21,6 +21,7 @@ import { ItemModalComponent } from './components/modal/item-modal/item-modal.com
 
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { ItemDetailsComponent } from './components/modal/item-details/item-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     KanbanItemComponent,
     KanbanBoardsComponent,
     ModalComponent,
-    ItemModalComponent
+    ItemModalComponent,
+    ItemDetailsComponent
   ],
   imports: [
     HttpClientModule,

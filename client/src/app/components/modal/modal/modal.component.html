@@ -1,7 +1,7 @@
 <div class="fixActionRow">
   <h1 mat-dialog-title>New board</h1>
   <div mat-dialog-content>
-    <input
+    <textarea
       placeholder="Title"
       style="
         outline: none;
@@ -14,7 +14,7 @@
         border-radius: 4px;
       "
       [(ngModel)]="data.title"
-    />
+    ></textarea>
   </div>
 
   <div class="spacer"></div>

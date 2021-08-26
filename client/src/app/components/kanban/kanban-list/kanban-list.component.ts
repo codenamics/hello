@@ -33,8 +33,8 @@ export class KanbanListComponent implements OnInit {
   ngOnInit(): void {}
   addItem(id: string): void {
     const dialogRef = this.dialog.open(ItemModalComponent, {
-      width: '350px',
-      height: '270px',
+      width: '50vw',
+     
       data: { title: this.title, description: this.description },
     });
 
