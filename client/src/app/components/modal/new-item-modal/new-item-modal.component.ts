@@ -3,10 +3,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 
 @Component({
   selector: 'app-item-modal',
-  templateUrl: './item-modal.component.html',
-  styleUrls: ['./item-modal.component.css']
+  templateUrl: './new-item-modal.component.html',
+  styleUrls: ['./new-item-modal.component.css']
 })
-export class ItemModalComponent implements OnInit {
+export class NewItemModalComponent implements OnInit {
  model!: string
  constructor(
    public dialogRef: MatDialogRef<MatDialog>,

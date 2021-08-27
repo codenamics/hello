@@ -4,7 +4,7 @@ import { board } from 'src/app/_models/board';
 import { item } from 'src/app/_models/item/item';
 import { ItemService } from 'src/app/_services/item.service';
 import { ListsService } from 'src/app/_services/lists.service';
-import { ModalComponent } from '../../modal/modal/modal.component';
+import { ModalComponent } from '../../modal/basic-modal/modal.component';
 import { v4 as uuidv4 } from 'uuid';
 import { list } from 'src/app/_models/list';
 import {
@@ -13,7 +13,7 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { ItemOrderBeTweenLists } from 'src/app/_models/item/itemBetweenListsOrder';
-import { ItemModalComponent } from '../../modal/item-modal/item-modal.component';
+import { NewItemModalComponent } from '../../modal/new-item-modal/new-item-modal.component';
 @Component({
   selector: 'app-kanban-list',
   templateUrl: './kanban-list.component.html',
@@ -32,7 +32,7 @@ export class KanbanListComponent implements OnInit {
 
   ngOnInit(): void {}
   addItem(id: string): void {
-    const dialogRef = this.dialog.open(ItemModalComponent, {
+    const dialogRef = this.dialog.open(NewItemModalComponent, {
       width: '50vw',
      
       data: { title: this.title, description: this.description },

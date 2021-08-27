@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { BoardService } from 'src/app/_services/board.service';
 import { ItemService } from 'src/app/_services/item.service';
 import { ListsService } from 'src/app/_services/lists.service';
-import { ModalComponent } from '../../modal/modal/modal.component';
+import { ModalComponent } from '../../modal/basic-modal/modal.component';
 
 
 @Component({
@@ -59,7 +59,7 @@ export class KanbanBoardComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '350px',
       height: '200px',
-      data: { title: this.title, placeholder: 'List title' },
+      data: { title: this.title, placeholder: 'Add list' },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

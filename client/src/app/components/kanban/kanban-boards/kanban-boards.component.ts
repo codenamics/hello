@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { board } from 'src/app/_models/board';
 import { BoardService } from 'src/app/_services/board.service';
 import { v4 as uuidv4 } from 'uuid';
-import { ModalComponent } from '../../modal/modal/modal.component';
+import { ModalComponent } from '../../modal/basic-modal/modal.component';
 @Component({
   selector: 'app-kanban-boards',
   templateUrl: './kanban-boards.component.html',
@@ -33,7 +33,7 @@ export class KanbanBoardsComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '350px',
       height: '200px',
-      data: { title: this.title },
+      data: { title: this.title, placeholder: "New Board" },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

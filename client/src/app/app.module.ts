@@ -15,9 +15,9 @@ import { KanbanItemComponent } from './components/kanban/kanban-item/kanban-item
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import { KanbanBoardsComponent } from './components/kanban/kanban-boards/kanban-boards.component';
-import { ModalComponent } from './components/modal/modal/modal.component';
+import { ModalComponent } from './components/modal/basic-modal/modal.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { ItemModalComponent } from './components/modal/item-modal/item-modal.component';
+import { NewItemModalComponent } from './components/modal/new-item-modal/new-item-modal.component';
 
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
@@ -33,7 +33,7 @@ import { ItemDetailsComponent } from './components/modal/item-details/item-detai
     KanbanItemComponent,
     KanbanBoardsComponent,
     ModalComponent,
-    ItemModalComponent,
+    NewItemModalComponent,
     ItemDetailsComponent
   ],
   imports: [
