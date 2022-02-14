@@ -45,7 +45,7 @@ export class KanbanBoardComponent implements OnInit {
     var newListOrder: list[] = this.board.lists.map((x) => ({
       id: x.id,
       title: x.title,
-      items: [],
+      cards: [],
     }));
 
     this.listsService.reOrderLists(this.board.id, newListOrder).subscribe(
@@ -68,7 +68,7 @@ export class KanbanBoardComponent implements OnInit {
         var newList: list = {
           id: uuidv4(),
           title: result.title,
-          items: [],
+          cards: [],
         };
         this.listsService.addList(this.board.id, newList).subscribe((list) => {
           this.board.lists.unshift(newList);

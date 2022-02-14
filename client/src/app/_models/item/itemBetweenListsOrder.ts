@@ -5,6 +5,6 @@ export interface ItemOrderBeTweenLists {
 
 interface Container {
     id: string,
-    items?: any[]
+    cards?: any[]
 }
 

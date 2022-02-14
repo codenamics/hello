@@ -29,7 +29,7 @@ namespace API {
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IBoardRepository, BoardRepository> ();
              services.AddScoped<IListRepository, ListRepository> ();
-                 services.AddScoped<IItemRepository, ItemRepository> ();
+                 services.AddScoped<ICardRepository, CardRepository> ();
             services.AddControllers ().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );

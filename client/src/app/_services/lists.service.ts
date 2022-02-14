@@ -22,7 +22,8 @@ export class ListsService {
     return this.http.put(this.baseUrl + 'list/' + id,  lists);
   }
   reOrderItemBetweenLists(data: any){
-    return this.http.put(this.baseUrl + 'item/',  data);
+    console.log(data)
+    return this.http.put(this.baseUrl + 'card/',  data);
   }
  
 }

@@ -4,5 +4,5 @@ export interface list{
     id: string;
     title: string;
     order?: number,
-    items: item[]
+    cards: item[]
 }

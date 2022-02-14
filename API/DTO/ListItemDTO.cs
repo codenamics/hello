@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using API.Entity;
 
 namespace API.DTO {
-    public class ListItemDTO {
+    public class ListCardDTO {
         public Guid id { get; set; }
-        public List<Item> items { get; set; }
+        public List<Card> cards { get; set; }
     }
 }

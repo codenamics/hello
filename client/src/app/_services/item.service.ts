@@ -12,16 +12,16 @@ export class ItemService {
   constructor(private http: HttpClient) { }
 
   reOrderItems(id: string, items: item[]){
-    return this.http.put(this.baseUrl + 'item/itemOrder/' + id,  items);
+    return this.http.put(this.baseUrl + 'card/itemOrder/' + id,  items);
   }
   addItem(id: string, item: item){
-    return this.http.post(this.baseUrl + 'item/' + id,  item);
+    return this.http.post(this.baseUrl + 'card/' + id,  item);
   }
   updateItem(item: any){
-    return this.http.put(this.baseUrl + 'item/updateItem/',  item);
+    return this.http.put(this.baseUrl + 'card/updateItem/',  item);
   }
   deleteListItem(listId: string, itemId: string, itemList: item[]){
-    return this.http.put(this.baseUrl + `item/${listId}/${itemId}`, itemList);
+    return this.http.put(this.baseUrl + `card/${listId}/${itemId}`, itemList);
   }
   
 }

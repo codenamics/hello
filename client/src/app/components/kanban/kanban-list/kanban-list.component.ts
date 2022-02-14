@@ -46,7 +46,7 @@ export class KanbanListComponent implements OnInit {
         order: 0,
       };
       this.itemService.addItem(id, newItem).subscribe((list) => {
-        this.board.lists.find((x) => x.id === id)?.items.unshift(newItem);
+        this.board.lists.find((x) => x.id === id)?.cards.unshift(newItem);
         this.loading = false;
       });
     });
@@ -84,11 +84,11 @@ export class KanbanListComponent implements OnInit {
       let newListOrderItem: ItemOrderBeTweenLists = {
         container: {
           id: event.container.id,
-          items: [...event.container.data],
+          cards: [...event.container.data],
         },
         previousContainer: {
           id: event.previousContainer.id,
-          items: [...event.previousContainer.data],
+          cards: [...event.previousContainer.data],
         },
       };
       this.listsService

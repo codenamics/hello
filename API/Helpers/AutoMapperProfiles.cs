@@ -7,7 +7,7 @@ namespace API.Helpers {
 
         public AutoMapperProfiles () {
             CreateMap<BoardDTO, Board> ();
-            CreateMap<ItemDTO, Item> ();
+            CreateMap<CardDTO, Card> ();
         }
 
     }

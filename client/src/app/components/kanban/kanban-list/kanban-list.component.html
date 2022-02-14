@@ -6,7 +6,7 @@
   [cdkDragData]="column"
 >
   <div cdkDragHandle class="card-header">
-    <div style="font-weight: 600; font-size: 20px; display: flex; flex-direction: row; align-items: center;">{{ column.title }}    <div class="button-standard-item" style="padding: 5px 10px; margin-left: 12px;">{{column.items.length.toString()}}</div></div>
+    <div style="font-weight: 600; font-size: 20px; display: flex; flex-direction: row; align-items: center;">{{ column.title }}    <div class="button-standard-item" style="padding: 5px 10px; margin-left: 12px;">{{column.cards.length.toString()}}</div></div>
 
     <div style="display: flex; align-items: center">
       <button
@@ -29,16 +29,16 @@
     cdkDropList
     [id]="column.id"
     class="card-container"
-    [cdkDropListData]="column.items"
+    [cdkDropListData]="column.cards"
     (cdkDropListDropped)="drop($event)"
     [cdkDropListConnectedTo]="getConnectedList()"
   >
     <div
       style="padding: 10px; text-align: center"
-      *ngIf="column.items.length === 0"
+      *ngIf="column.cards.length === 0"
     >
       I am empty:/
     </div>
-    <app-kanban-item [items]="column.items"></app-kanban-item>
+    <app-kanban-item [items]="column.cards"></app-kanban-item>
   </div>
 </div>

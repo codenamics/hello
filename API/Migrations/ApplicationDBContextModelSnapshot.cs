@@ -32,7 +32,7 @@ namespace API.Migrations
                     b.ToTable("Boards");
                 });
 
-            modelBuilder.Entity("API.Entity.Item", b =>
+            modelBuilder.Entity("API.Entity.Card", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -53,7 +53,7 @@ namespace API.Migrations
 
                     b.HasIndex("ListId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Cards");
                 });
 
             modelBuilder.Entity("API.Entity.List", b =>
@@ -77,10 +77,32 @@ namespace API.Migrations
                     b.ToTable("Lists");
                 });
 
-            modelBuilder.Entity("API.Entity.Item", b =>
+            modelBuilder.Entity("API.Entity.Task", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CardId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("isCompleted")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CardId");
+
+                    b.ToTable("Task");
+                });
+
+            modelBuilder.Entity("API.Entity.Card", b =>
                 {
                     b.HasOne("API.Entity.List", "List")
-                        .WithMany("Items")
+                        .WithMany("Cards")
                         .HasForeignKey("ListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -99,14 +121,30 @@ namespace API.Migrations
                     b.Navigation("Board");
                 });
 
+            modelBuilder.Entity("API.Entity.Task", b =>
+                {
+                    b.HasOne("API.Entity.Card", "Card")
+                        .WithMany("tasks")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Card");
+                });
+
             modelBuilder.Entity("API.Entity.Board", b =>
                 {
                     b.Navigation("Lists");
                 });
 
+            modelBuilder.Entity("API.Entity.Card", b =>
+                {
+                    b.Navigation("tasks");
+                });
+
             modelBuilder.Entity("API.Entity.List", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("Cards");
                 });
 #pragma warning restore 612, 618
         }

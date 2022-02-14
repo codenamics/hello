@@ -20,7 +20,7 @@ namespace API.Data {
         }
 
         public async Task<List> GetListAsync (Guid id) {
-            return await _context.Lists.Include (x => x.Items).FirstOrDefaultAsync (x => x.Id == id);
+            return await _context.Lists.Include (x => x.Cards).FirstOrDefaultAsync (x => x.Id == id);
         }
 
         public void UpdateList (List list) {

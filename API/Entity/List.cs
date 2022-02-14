@@ -14,6 +14,6 @@ namespace API.Entity
          public int Order { get; set; }
            public Board Board { get; set; }
         public Guid BoardId { get; set; }
-         public ICollection<Item> Items { get; set; } = new List<Item>();
+         public ICollection<Card> Cards { get; set; } = new List<Card>();
     }
 }
