@@ -1,6 +1,6 @@
 .lists-container {
-  height: 100vh;
-  width: 96%;
+  height: 500px;
+  width: 100%;
   padding: 23px 0px;
   overflow-x: auto;
   overflow-y: hidden;
