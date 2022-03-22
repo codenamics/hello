@@ -1,7 +1,6 @@
 .lists-container {
-  height: 500px;
   width: 100%;
-  padding: 23px 0px;
+  min-height: 79vh;
   overflow-x: auto;
   overflow-y: hidden;
 }

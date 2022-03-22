@@ -6,7 +6,23 @@
   [cdkDragData]="column"
 >
   <div cdkDragHandle class="card-header">
-    <div style="font-weight: 600; font-size: 20px; display: flex; flex-direction: row; align-items: center;">{{ column.title }}    <div class="button-standard-item" style="padding: 5px 10px; margin-left: 12px;">{{column.cards.length.toString()}}</div></div>
+    <div
+      style="
+        font-weight: 600;
+        font-size: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      "
+    >
+      {{ column.title }}
+      <div
+        class="button-standard-item"
+        style="padding: 5px 10px; margin-left: 12px"
+      >
+        {{ column.cards.length.toString() }}
+      </div>
+    </div>
 
     <div style="display: flex; align-items: center">
       <button
@@ -27,6 +43,7 @@
   </div>
   <div
     cdkDropList
+    [cdkDropListAutoScrollStep]="10"
     [id]="column.id"
     class="card-container"
     [cdkDropListData]="column.cards"

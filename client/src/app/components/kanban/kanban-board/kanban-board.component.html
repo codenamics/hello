@@ -25,6 +25,7 @@
 
   <div
     cdkDropList
+    [cdkDropListAutoScrollStep]="15"
     cdkDropListOrientation="horizontal"
     [cdkDropListData]="board?.lists?.length !== 0 && !loading"
     (cdkDropListDropped)="dropColumns($event)"
