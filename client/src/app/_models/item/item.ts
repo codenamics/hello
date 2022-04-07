@@ -1,9 +1,6 @@
-export interface item{
-    id: string;
-    title: string;
-description: string;
-    order: number;
-    
-  
-
+export interface item {
+  id: string;
+  title?: string;
+  description?: string;
+  order: number;
 }

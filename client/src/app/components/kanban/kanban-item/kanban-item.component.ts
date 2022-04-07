@@ -55,6 +55,10 @@ export class KanbanItemComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (!result) {
+        return;
+      }
       var upItem: item = {
         ...item,
         title: result.title,
