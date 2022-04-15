@@ -28,18 +28,6 @@ builder.Services.AddDbContext<ApplicationDBContext>(
     });
 var app = builder.Build();
 
-
-app.UseHttpsRedirection();
-
-app.UseRouting();
-
-
-app.UseAuthorization();
-
-app.UseDefaultFiles();
-app.UseStaticFiles();
-
-
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 try
@@ -53,5 +41,16 @@ catch (Exception ex)
     var logger = services.GetRequiredService<ILogger<Program>>();
     logger.LogError(ex, "An error occurred during migration");
 }
+
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+
+app.UseAuthorization();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 await app.RunAsync();
 
