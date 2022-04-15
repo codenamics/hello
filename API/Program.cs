@@ -24,7 +24,7 @@ options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoop
 builder.Services.AddDbContext<ApplicationDBContext>(
     options =>
     {
-        options.UseNpgsql(builder.Configuration["ConnectionStrings:DefaultConnection"]);
+        options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]);
     });
 var app = builder.Build();
 
