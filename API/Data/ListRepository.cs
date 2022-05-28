@@ -6,27 +6,32 @@ using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Data {
-    public class ListRepository : IListRepository {
-        private readonly IBoardRepository _boardRepository;
+namespace API.Data
+{
+    public class ListRepository : IListRepository
+    {
         private readonly ApplicationDBContext _context;
 
-        public ListRepository (ApplicationDBContext context) {
+        public ListRepository(ApplicationDBContext context)
+        {
             _context = context;
         }
 
-        public void DeleteList (List list) {
-            _context.Entry (list).State = EntityState.Deleted;
+        public void DeleteList(List list)
+        {
+            _context.Entry(list).State = EntityState.Deleted;
         }
 
-        public async Task<List> GetListAsync (Guid id) {
-            return await _context.Lists.Include (x => x.Cards).FirstOrDefaultAsync (x => x.Id == id);
+        public async Task<List> GetListAsync(Guid id)
+        {
+            return await _context.Lists.Include(x => x.Cards).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void UpdateList (List list) {
+        public void UpdateList(List list)
+        {
 
-            _context.Entry (list).State = EntityState.Modified;
-            _context.Entry (list).Property (x => x.BoardId).IsModified = false;
+            _context.Entry(list).State = EntityState.Modified;
+            _context.Entry(list).Property(x => x.BoardId).IsModified = false;
 
         }
 
